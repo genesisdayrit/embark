@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../App.css";
 
-function Delivereditems() {
+function DeliveredItems() {
     const [count, setCount] = useState<number>(0);
 
     return (
@@ -17,4 +17,4 @@ function Delivereditems() {
     );
 }
 
-export default Delivereditems;
+export default DeliveredItems;
