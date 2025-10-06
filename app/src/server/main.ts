@@ -1,9 +1,9 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import ViteExpress from "vite-express";
 
 const app = express();
 
-app.get("/hello", (req, res) => {
+app.get("/hello", (_req: Request, res: Response) => {
   res.send("Hello Vite + React!");
 });
 
