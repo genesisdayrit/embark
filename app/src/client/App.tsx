@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { authClient } from "./authclient";
+import Signin from "./Signin"
 import "./App.css";
 
 function App() {
@@ -16,6 +17,9 @@ function App() {
       <button onClick={signIn}>Sign In with Google</button>
 
     </div>
+    <>
+      <Signin />
+    </>
   );
 }
 
