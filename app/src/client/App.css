@@ -10,11 +10,11 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background-color: #FEFAE0;
-  color: #352f36;
 }
 
 body {
+  background-color: #FEFAE0;
+  color: #352f36;
   font-family: Nunito;
 }
 
