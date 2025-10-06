@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Signin from "./Signin"
+import Dashboard from "./Dashboard";
 import "./App.css";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
   return (
     <>
       <Signin />
+      <Dashboard />
     </>
   );
 }
