@@ -3,11 +3,7 @@ import ViteExpress from "vite-express";
 import { server_auth } from "./auth";
 import { toNodeHandler } from "better-auth/node";
 
-
 const app = express();
-ViteExpress.listen(app, 3000, () =>
-  console.log("Server is listening on port 3000..."),
-);
 app.use(express.json())
 
 app.all("/api/auth/*path", toNodeHandler(server_auth)); //runs, state not found error from better auth, 404 when you go to login google. 
@@ -23,3 +19,7 @@ app.all("/api/auth/login/google", async (req: Request, res: Response) => {
   return response
 
 })
+
+ViteExpress.listen(app, 3000, () =>
+  console.log("Server is listening on port 3000..."),
+);
