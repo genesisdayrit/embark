@@ -8,6 +8,13 @@
       "when": 1759764910915,
       "tag": "0000_far_nekra",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1759770208988,
+      "tag": "0001_foamy_lester",
+      "breakpoints": true
     }
   ]
 }
