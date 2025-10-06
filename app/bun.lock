@@ -6,6 +6,7 @@
       "dependencies": {
         "@ai-sdk/openai": "^2.1.0-beta.12",
         "@tailwindcss/vite": "^4.1.14",
+        "add": "^2.0.6",
         "ai": "^5.1.0-beta.22",
         "dotenv": "^17.2.3",
         "drizzle-orm": "^0.44.6",
@@ -270,6 +271,8 @@
     "@vitejs/plugin-react": ["@vitejs/plugin-react@4.7.0", "", { "dependencies": { "@babel/core": "^7.28.0", "@babel/plugin-transform-react-jsx-self": "^7.27.1", "@babel/plugin-transform-react-jsx-source": "^7.27.1", "@rolldown/pluginutils": "1.0.0-beta.27", "@types/babel__core": "^7.20.5", "react-refresh": "^0.17.0" }, "peerDependencies": { "vite": "^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0" } }, "sha512-gUu9hwfWvvEDBBmgtAowQCojwZmJ5mcLn3aufeCsitijs3+f2NsrPtlAWIR6OPiqljl96GVCUbLe0HyqIpVaoA=="],
 
     "accepts": ["accepts@2.0.0", "", { "dependencies": { "mime-types": "^3.0.0", "negotiator": "^1.0.0" } }, "sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng=="],
+
+    "add": ["add@2.0.6", "", {}, "sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q=="],
 
     "ai": ["ai@5.1.0-beta.22", "", { "dependencies": { "@ai-sdk/gateway": "1.1.0-beta.16", "@ai-sdk/provider": "2.1.0-beta.5", "@ai-sdk/provider-utils": "3.1.0-beta.7", "@opentelemetry/api": "1.9.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-7z/PMSEQRes1aXywA5POKhoDxXD25CAT7Al2ObYFiQPudhL8GXd9wlXcbUBaz1+Smg4WHKR4f83iOv9jwyubvQ=="],
 
