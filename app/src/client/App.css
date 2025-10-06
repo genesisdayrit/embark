@@ -11,6 +11,7 @@
   padding: 2rem;
   text-align: center;
   background-color: #FEFAE0;
+  color: #352f36;
 }
 
 body {
@@ -20,5 +21,4 @@ body {
 button {
   background-color: #FFFFFF;
   border-radius: 10rem;
-  /* border-gray-300 rounded-lg py-2 px-4 */
 }
