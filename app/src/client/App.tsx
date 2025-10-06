@@ -12,11 +12,6 @@ function App() {
   };
 
   return (
-    <div>
-
-      <button onClick={signIn}>Sign In with Google</button>
-
-    </div>
     <>
       <Signin />
     </>
