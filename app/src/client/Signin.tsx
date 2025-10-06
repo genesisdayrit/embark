@@ -1,9 +1,17 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
+import { authClient } from "./authclient";
+
 
 function Signin() {
-  const [count, setCount] = useState<number>(0);
+
+  const signIn = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+    return data
+  };
 
   return (
     <div className="flex flex-col">
@@ -14,7 +22,10 @@ function Signin() {
         <p className="mt-2">
           Connect Gmail to auto-collect tracking emails.
         </p>
-        <button className="inline-flex items-center justify-center gap-2 mt-4">
+        <button
+          onClick={signIn}
+          className="inline-flex items-center justify-center gap-2 mt-4"
+        >
           <img
             src="https://developers.google.com/identity/images/g-logo.png"
             alt="Google Logo"
