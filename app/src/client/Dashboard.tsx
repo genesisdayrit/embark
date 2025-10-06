@@ -11,37 +11,37 @@ function Dashboard() {
 
       <div className="mt-5 flex flex-col items-start gap-5">
         <p className="font-extrabold">Upcoming deliveries</p>
-        <div className="bg-[#FAEDCD] rounded-xl p-2 justify-start flex gap-2 w-150 h-30">
+        <div className="bg-[#FAEDCD] rounded-xl p-4 justify-start flex gap-5 w-150 h-30">
           <p className="border border-2 rounded-xl w-30">item img</p>
           <div className="flex flex-col items-start">
-            <p>items name: </p>
+            <p>Arriving on: </p>
+            <p>item name: </p>
             <p>tracking number: </p>
-            <p>expected delivery: </p>
           </div>
         </div>
 
-        <div className="bg-[#FAEDCD] rounded-xl p-2 justify-start flex gap-2 w-150 h-30">
+        <div className="bg-[#FAEDCD] rounded-xl p-4 justify-start flex gap-5 w-150 h-30">
           <p className="border border-2 rounded-xl w-30">item img</p>
           <div className="flex flex-col items-start">
-            <p>items name: </p>
+            <p>Arriving on: </p>
+            <p>item name: </p>
             <p>tracking number: </p>
-            <p>expected delivery: </p>
           </div>
         </div>
 
-        <div className="bg-[#FAEDCD] rounded-xl p-2 justify-start flex gap-2 w-150 h-30">
+        <div className="bg-[#FAEDCD] rounded-xl p-4 justify-start flex gap-5 w-150 h-30">
           <p className="border border-2 rounded-xl w-30">item img</p>
           <div className="flex flex-col items-start">
-            <p>items name: </p>
+            <p>Arriving on: </p>
+            <p>item name: </p>
             <p>tracking number: </p>
-            <p>expected delivery: </p>
           </div>
         </div>
       </div>
 
       <div className="mt-5 flex flex-col items-start">
         <p className="font-extrabold">Delivery history</p>
-        <div className="bg-[#D4A373] p-2 rounded-xl justify-start flex gap-2 w-150 h-30">
+        <div className="bg-[#D4A373] p-4 rounded-xl justify-start flex gap-2 w-150 h-30">
           <p className="border border-2 rounded-xl w-30">item img</p>
           <div className="flex flex-col items-start">
             <p>items name: </p>
