@@ -19,7 +19,7 @@ function rand(min: number, max: number) {
     return Math.random() * (max - min) + min;
 }
 
-export default function BoxesRain() {
+export default function Home() {
     const wrapRef = useRef<HTMLDivElement>(null);
     const [dims, setDims] = useState({ w: 0, h: 0 });
 
@@ -78,7 +78,6 @@ export default function BoxesRain() {
                         <motion.img
                             key={b.id}
                             src={b.src}
-                            alt=""
                             className="absolute select-none"
                             style={{
                                 width: b.size,
@@ -117,6 +116,7 @@ export default function BoxesRain() {
                                 },
                             }}
                             draggable={false}
+
                         />
                     </>
                 );

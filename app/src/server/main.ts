@@ -27,13 +27,14 @@ app.all("/api/auth/login/google", async (req: Request, res: Response) => {
 
 })
 
-app.get("/orders", async (req: Request, res: Response) => {
+app.get("/api/orders", async (req: Request, res: Response) => {
 
   const userOrders = await getUserOrders(req)
 
   res.send(userOrders)
 
 })
+
 
 app.post('/ai/extract', async (req, res) => {
   const { emailText } = req.body ?? {}
