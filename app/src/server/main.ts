@@ -20,6 +20,15 @@ app.all("/api/auth/login/google", async (req: Request, res: Response) => {
 
 })
 
+app.post('/ai/extract', async (req, res) => {
+    const { emailText } = req.body ?? {}
+    if (!emailText?.trim()) return res.status(400).json({ error: "emailText required" })
+
+    const result = await parseEmail(emailText)
+
+    return res.json(result)
+})
+
 ViteExpress.listen(app, 3000, () =>
   console.log("Server is listening on port 3000..."),
 );
