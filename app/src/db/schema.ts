@@ -1,4 +1,4 @@
-import { boolean, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { boolean, pgTable, text, timestamp, uuid, jsonb} from 'drizzle-orm/pg-core';
 import { user } from './auth-schema';
 
 export const orders = pgTable('orders', {
@@ -10,6 +10,7 @@ export const orders = pgTable('orders', {
   shipmentDate: timestamp('shipment_date'),
   estimatedDeliveryDate: timestamp('estimated_delivery_date'),
   actualDeliveryDate: timestamp('actual_delivery_date'),
+  orderInfo: jsonb('order_info'),
   lastCommunicationAt: timestamp('last_communication_at'),
   relatedCommunicationIds: uuid('related_communication_ids').array(),
   trackingUrls: text('tracking_urls').array(),
