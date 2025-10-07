@@ -7,17 +7,13 @@ import "./App.css";
 
 function App() {
 
-  const signIn = async () => {
-    const data = await authClient.signIn.social({
-      provider: "google",
-    });
-  };
+
 
   return (
     <>
       <Home />
       <Signin />
-      <Dashboard />
+      {/* <Dashboard /> */}
     </>
   );
 }

@@ -4,8 +4,8 @@ import ItemList from "./components/ItemList";
 import DeliveredItems from "./components/Delivereditems";
 import Nav from "./components/Nav";
 
-function Dashboard() {
-  const [count, setCount] = useState<number>(0);
+async function Dashboard() {
+
 
   return (
     <>
