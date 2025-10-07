@@ -2,6 +2,8 @@ import express, { Request, Response } from "express";
 import ViteExpress from "vite-express";
 import { server_auth } from "./auth";
 import { toNodeHandler } from "better-auth/node";
+import 'dotenv/config'
+import { parseEmail } from "./ai/extractor/parseEmail"
 
 const app = express();
 app.use(express.json())
