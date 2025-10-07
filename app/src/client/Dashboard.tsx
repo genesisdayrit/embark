@@ -33,14 +33,11 @@ function Dashboard() {
           <ItemList /> */}
         </div>
 
-            <div className="w-full mt-10 flex flex-col items-start gap-5">
-              <p className="font-extrabold text-3xl">Delivery history</p>
-              <DeliveredItems />
-            </div>
-          </div>
+        <div className="w-full mt-10 flex flex-col items-start gap-5">
+          <p className="font-extrabold text-3xl">Delivery history</p>
+          <DeliveredItems />
         </div>
       </div>
-
     </>
   );
 }
