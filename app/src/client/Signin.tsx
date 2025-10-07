@@ -8,7 +8,8 @@ function Signin() {
   const signIn = async () => {
     const data = await authClient.signIn.social({
       provider: "google",
-      callbackURL: " http://localhost:3000/orders"
+      callbackURL: " http://localhost:3000/orders",
+      scopes: ["https://www.googleapis.com/auth/gmail.readonly"]
     });
 
     return data
