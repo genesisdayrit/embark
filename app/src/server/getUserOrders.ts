@@ -12,8 +12,8 @@ export const getUserOrders = async (req: Request) => {
     const ba_session = await server_auth.api.getSession({
         headers: new Headers(
             Object.entries(req.headers)
-                .filter(([key, value]) => typeof value === "string")
-                .map(([key, value]) => [key, value as string])
+                .filter(([_, value]) => typeof value === "string")
+                .map(([key, value]) => [key, value as string] as [string, string])
         )
     })
 
