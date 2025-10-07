@@ -6,10 +6,10 @@ function ItemList() {
 
     return (
         <>
-            <div className="bg-[#FAEDCD] rounded-xl p-4 justify-start flex gap-5 w-150 h-30">
-                <p className="border border-2 rounded-xl w-30">item img</p>
-                <div className="flex flex-col items-start">
-                    <p className="font-bold">Arriving on: </p>
+            <div className="relative w-full bg-[#FAEDCD] rounded-xl p-4 justify-start flex gap-5 h-50">
+                <p className="relative border border-2 rounded-xl w-100">item img</p>
+                <div className="relative w-full flex flex-col items-start gap-3 justify-center">
+                    <p className="font-bold text-2xl">Arriving on: </p>
                     <p>item name: </p>
                     <p>tracking number: </p>
                 </div>
