@@ -36,6 +36,20 @@
       "when": 1759788000000,
       "tag": "0004_convert_to_uuid",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1759848240308,
+      "tag": "0005_mature_master_mold",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1759848913509,
+      "tag": "0006_mysterious_blindfold",
+      "breakpoints": true
     }
   ]
 }
