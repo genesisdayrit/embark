@@ -20,7 +20,7 @@ function Signin() {
             alt="Google Logo"
             className="w-5 h-5"
           />
-          <span className="font-medium">Sign in with Google</span>
+          <span className="font-medium">Sign in with your Gmail</span>
         </button>
       </div>
     </div>

@@ -2,12 +2,9 @@ import express, { Request, Response } from "express";
 import ViteExpress from "vite-express";
 import { server_auth } from "./auth";
 import { toNodeHandler } from "better-auth/node";
-import {
-  listMessages,
-  getMessage,
-  sendEmail,
-  getProfile,
-} from "./gmail/gmail";
+import 'dotenv/config';
+import { parseEmail } from "./ai/extractor/parseEmail";
+
 
 const app = express();
 app.use(express.json());
@@ -131,6 +128,15 @@ app.get("/api/gmail/profile", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to fetch profile" });
   }
 });
+
+app.post('/ai/extract', async (req, res) => {
+    const { emailText } = req.body ?? {}
+    if (!emailText?.trim()) return res.status(400).json({ error: "emailText required" })
+
+    const result = await parseEmail(emailText)
+
+    return res.json(result)
+})
 
 ViteExpress.listen(app, 3000, () =>
   console.log("Server is listening on port 3000..."),
