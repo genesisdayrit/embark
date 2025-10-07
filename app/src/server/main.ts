@@ -5,6 +5,10 @@ import { toNodeHandler } from "better-auth/node";
 import 'dotenv/config';
 import { parseEmail } from "./ai/extractor/parseEmail";
 
+import { db } from "@/db";
+import { orders } from "@/db/schema";
+import { eq, and } from "drizzle-orm";
+import { getUserOrders } from "./getUserOrders";
 
 const app = express();
 app.use(express.json())
@@ -23,13 +27,21 @@ app.all("/api/auth/login/google", async (req: Request, res: Response) => {
 
 })
 
+app.get("/orders", async (req: Request, res: Response) => {
+
+  const userOrders = await getUserOrders(req)
+
+  res.send(userOrders)
+
+})
+
 app.post('/ai/extract', async (req, res) => {
-    const { emailText } = req.body ?? {}
-    if (!emailText?.trim()) return res.status(400).json({ error: "emailText required" })
+  const { emailText } = req.body ?? {}
+  if (!emailText?.trim()) return res.status(400).json({ error: "emailText required" })
 
-    const result = await parseEmail(emailText)
+  const result = await parseEmail(emailText)
 
-    return res.json(result)
+  return res.json(result)
 })
 
 ViteExpress.listen(app, 3000, () =>
