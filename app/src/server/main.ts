@@ -53,7 +53,7 @@ app.get("/api/gmail/:userId", async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Period must be a positive number" });
     }
 
-    // fetch user emails
+    // fetch emails
     const emails = await fetchUserEmails({
       userId,
       lookBackPeriod,

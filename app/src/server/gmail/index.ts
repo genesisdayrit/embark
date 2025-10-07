@@ -66,6 +66,7 @@ export const fetchUserEmails = async (
 
   const gmail = google.gmail({ version: "v1", auth: oauth2Client });
 
+  // subtract current date from lookBackPeriod date in days, and convert to timestamp
   const lookBackDate = new Date();
   lookBackDate.setDate(lookBackDate.getDate() - lookBackPeriod);
   const afterTimestamp = Math.floor(lookBackDate.getTime() / 1000);
@@ -100,6 +101,7 @@ export const fetchUserEmails = async (
       const labels = messageData.data.labelIds || [];
       const isRead = !labels.includes("UNREAD");
 
+      // parse the email body
       let body = "";
       if (messageData.data.payload?.body?.data) {
         body = Buffer.from(messageData.data.payload.body.data, "base64").toString("utf-8");
