@@ -6,11 +6,11 @@ function Signin() {
   const [count, setCount] = useState<number>(0);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col justify-center items-center">
       <p className="text-5xl">🦉</p>
-      <p className="mt-5 text-3xl">Tracking your packages ... </p>
+      <p className="mt-5 text-3xl font-bold">Tracking your packages ... </p>
       <p className="text-3xl">hoot hoot</p>
-      <div className="rounded-3xl mt-15 p-5 bg-[#E9EDC9]">
+      <div className="w-100 rounded-3xl mt-15 p-5 bg-[#E9EDC9]">
         <p className="mt-2">
           Connect Gmail to auto-collect tracking emails.
         </p>
