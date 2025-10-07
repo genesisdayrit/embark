@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
+import Nav from "./components/Nav";
 import "./App.css";
 
 type BoxCfg = {
@@ -37,15 +38,15 @@ export default function BoxesRain() {
     const boxes: BoxCfg[] = useMemo(() => {
         const count = 10;
         return Array.from({ length: count }, (_, i) => {
-            const size = Math.round(rand(64, 120));               // varied sizes
+            const size = Math.round(rand(80, 150));
             return {
                 id: i,
                 src: SPRITES[Math.floor(rand(0, SPRITES.length))],
-                x: Math.round(rand(0, Math.max(0, window.innerWidth - size))), // fallback; will reflow after measure
+                x: Math.round(rand(0, Math.max(0, window.innerWidth - size))),
                 size,
-                duration: rand(2.5, 4.5),                           // different speeds
-                delay: rand(0, 1.2),                                // staggered starts
-                rot: rand(120, 420),                                // spin amount per fall
+                duration: rand(2.5, 4.5),
+                delay: rand(0, 1.2),
+                rot: rand(120, 420),
             };
         });
     }, []);
@@ -54,11 +55,13 @@ export default function BoxesRain() {
         const xMax = Math.max(0, dims.w - b.size);
         return { ...b, x: Math.min(b.x, xMax) };
     });
+
     return (
         <div
             ref={wrapRef}
             className="relative h-screen w-full overflow-hidden"
         >
+            <Nav />
             <div className="text-[120px] font-bold">
                 <p>Where are</p>
                 <p>All Your</p>
