@@ -6,7 +6,7 @@ function Nav() {
 
     return (
         <>
-            <ul className="text-[20px] font-bold w-full h-20 flex items-center justify-between">
+            <ul className="relative text-[20px] font-bold w-full h-20 flex items-center justify-between">
                 <li className="pl-20">🦉</li>
                 <div className="flex gap-20 pr-20">
                     <li className=" p-2 rounded-3xl">Home</li>
