@@ -17,6 +17,7 @@
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.6",
     "express": "^5.1.0",
+    "framer-motion": "^12.23.22",
     "install": "^0.13.0",
     "postgres": "^3.4.7",
     "react": "^19.1.0",
