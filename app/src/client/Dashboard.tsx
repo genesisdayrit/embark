@@ -1,27 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import ItemList from "./components/ItemList";
 import DeliveredItems from "./components/Delivereditems";
 import Nav from "./components/Nav";
+import type { userOrders } from "./types";
 
-async function Dashboard() {
+function Dashboard() {
 
+  const [orders, setOrders] = useState<userOrders[]>([])
 
+  useEffect(() => {
+    fetch(`/api/orders`)
+      .then(response => response.json())
+      .then(data => { setOrders(data), console.log('Got data ', data) })
+      .catch(_e => { throw Error("Could not get user orders from server") })
+  }, [])
+
+  console.log("dashboard has orders", orders)
   return (
     <>
-      <div className="relative w-full">
-        <Nav />
-        <div className="w-full">
-          <div className="mt-5 flex flex-col items-start text-lg">
-            <p className="text-4xl font-extrabold">Your Orders🦉📦</p>
-            <p className="text-lg"> # number of deliveries on the way... </p>
+      <Nav />
+      <p></p>
+      <div className="mt-5 flex flex-col items-start text-lg">
+        <p className="text-3xl font-extrabold">Your Orders🦉📦</p>
+        <p className="text-lg"> # number of deliveries on the way... </p>
 
-            <div className="w-full mt-10 flex flex-col items-start gap-5">
-              <p className="font-extrabold text-3xl">Upcoming deliveries</p>
-              <ItemList />
-              <ItemList />
-              <ItemList />
-            </div>
+        <div className="mt-10 flex flex-col items-start gap-5">
+          <p className="font-extrabold">Upcoming deliveries</p>
+          {orders.map((order) => <ItemList order={order} />)}
+          {/* <ItemList />
+          <ItemList />
+          <ItemList /> */}
+        </div>
 
             <div className="w-full mt-10 flex flex-col items-start gap-5">
               <p className="font-extrabold text-3xl">Delivery history</p>
@@ -30,6 +40,7 @@ async function Dashboard() {
           </div>
         </div>
       </div>
+
     </>
   );
 }
