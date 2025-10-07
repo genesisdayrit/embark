@@ -9,6 +9,8 @@ import { db } from "@/db";
 import { orders } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { getUserOrders } from "./getUserOrders";
+import { google } from "googleapis";
+import { fetchUserEmails } from "./gmail";
 
 const app = express();
 app.use(express.json())
@@ -35,6 +37,41 @@ app.get("/api/orders", async (req: Request, res: Response) => {
 
 })
 
+
+app.get("/api/gmail/:userId", async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const { period } = req.query;
+
+    if (!userId) {
+      return res.status(400).json({ error: "userId is required" });
+    }
+    
+    // check for lookBackPeriod in the query, if not available, default to lookback 5 days
+    const lookBackPeriod = period ? parseInt(period as string) : 5;
+    if (isNaN(lookBackPeriod) || lookBackPeriod < 1) {
+      return res.status(400).json({ error: "Period must be a positive number" });
+    }
+
+    // fetch user emails
+    const emails = await fetchUserEmails({
+      userId,
+      lookBackPeriod,
+    });
+
+    return res.json({
+      success: true,
+      email_count: emails.length,
+      emails,
+    });
+  } catch (error) {
+    console.error("Error in /api/gmail endpoint:", error);
+    return res.status(500).json({
+      error: "Failed to fetch emails",
+      message: error,
+    });
+  }
+});
 
 app.post('/ai/extract', async (req, res) => {
   const { emailText } = req.body ?? {}
