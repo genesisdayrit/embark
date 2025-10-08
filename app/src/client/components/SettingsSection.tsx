@@ -32,9 +32,9 @@ function Right({ children }: SectionProps) {
 
 function Row({ label, children }: SectionProps) {
   return (
-    <div>
-      <p className="font-bold">{label}</p>
-      <p className="text-gray-500">{children}</p>
+    <div className="flex flex-col items-start">
+      <p className="font-bold ">{label}</p>
+      <p className="text-gray-500 ">{children}</p>
     </div>
   )
 }
