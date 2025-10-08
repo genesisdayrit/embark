@@ -17,7 +17,7 @@ app.use(express.json())
 
 app.all("/api/auth/*path", toNodeHandler(server_auth)); //runs, state not found error from better auth, 404 when you go to login google. 
 
-app.get("/hello", (_req: Request, res: Response) => {
+app.get("/api/hello", (_req: Request, res: Response) => {
   res.send("Hello Vite + React!");
 });
 
@@ -73,7 +73,7 @@ app.get("/api/gmail/:userId", async (req: Request, res: Response) => {
   }
 });
 
-app.post('/ai/extract', async (req, res) => {
+app.post('/api/ai/extract', async (req, res) => {
   const { emailText } = req.body ?? {}
   if (!emailText?.trim()) return res.status(400).json({ error: "emailText required" })
 

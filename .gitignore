@@ -1,3 +1,4 @@
 .env
 DEV-NOTES.md 
 app/src/server/temp/*
+.vercel
