@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon --exec tsx src/server/main.ts -w src/server",
     "start": "NODE_ENV=production tsx src/server/main.ts",
-    "build": "vite build"
+    "build": "bun run build:vite && bun run build:server",
+    "build:vite": "vite build",
+    "build:server": "tsup api/index.ts --format esm --dts"
   },
   "packageManager": "bun@^1",
   "dependencies": {
