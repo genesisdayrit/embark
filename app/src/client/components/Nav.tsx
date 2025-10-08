@@ -20,13 +20,12 @@ function Nav() {
         <>
             <ul className="relative text-[20px] font-bold w-full h-20 flex items-center justify-between">
                 <li className="pl-20">🦉</li>
-                <div className="flex gap-20 pr-20">
-                    <button onClick={handleLogin} className=" p-2 rounded-3xl">Login</button>
-                    {/* <button className=" p-2 rounded-3xl">Logout</button> */}
-                    <button className=" p-2 rounded-3xl">Home</button>
-                    <button className=" p-2 rounded-3xl">About</button>
-                    <button className=" p-2 rounded-3xl">Orders</button>
-                    <button className=" p-2 rounded-3xl">Settings</button>
+                <div className="flex gap-10 pr-20">
+                    <button onClick={handleLogin} >Login</button>
+                    <button >Home</button>
+                    <button >About</button>
+                    <button >Orders</button>
+                    <button >Settings</button>
                 </div>
 
             </ul >
