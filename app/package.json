@@ -7,7 +7,7 @@
     "dev": "nodemon --exec tsx src/server/main.ts -w src/server",
     "start": "NODE_ENV=production node dist/server/main.js",
     "build": "vite build && bun run build:server",
-    "build:server": "esbuild src/server/main.ts --bundle --format=esm --platform=node --target=node20 --outdir=dist/server --sourcemap"
+    "build:server": "tsup src/server/main.ts --format esm --target=node20 --platform=node --out-dir dist/server --sourcemap --clean"
   },
   "packageManager": "bun@^1",
   "dependencies": {
