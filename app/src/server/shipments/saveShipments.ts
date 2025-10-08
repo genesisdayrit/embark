@@ -9,7 +9,9 @@ type saveCtx = NormalizedMessage & { parsed: ParsedEmail }
 
 export async function saveShipment(ctx: saveCtx): Promise<ShipmentDTO> {
   const { userId, parsed } = ctx;
-  const tracking = parsed.tracking_numbers?.[0]
+  const tn = [...new Set((parsed.tracking_numbers ?? []).map(t => t.trim()).filter(Boolean))]
+  const tu = [...new Set((parsed.tracking_urls ?? []).map(u => u.trim()).filter(Boolean))]
+  const tracking = tn[0]
   if (!tracking) throw new Error("no_tracking_number")
 
   return db.transaction(async (tx) => {
@@ -27,8 +29,8 @@ export async function saveShipment(ctx: saveCtx): Promise<ShipmentDTO> {
     let orderRow;
     if (existingOrder.length) {
       const updated = await tx.update(orders).set({
-        trackingNumbers: parsed.tracking_numbers,
-        trackingUrls: parsed.tracking_urls,
+        trackingNumbers: tn,
+        trackingUrls: tu,
         estimatedDeliveryDate: parsed.estimated_delivery ? new Date(parsed.estimated_delivery) : null,
         updatedAt: new Date(),
         lastCommunicationAt: new Date()
@@ -40,8 +42,8 @@ export async function saveShipment(ctx: saveCtx): Promise<ShipmentDTO> {
       const inserted = await tx.insert(orders).values({
         userId,
         orderDate: new Date(),
-        trackingNumbers: parsed.tracking_numbers,
-        trackingUrls: parsed.tracking_urls,
+        trackingNumbers: tn,
+        trackingUrls: tu,
         estimatedDeliveryDate: parsed.estimated_delivery ? new Date(parsed.estimated_delivery) : null,
         lastCommunicationAt: new Date()
       }).returning();
@@ -73,8 +75,8 @@ export async function saveShipment(ctx: saveCtx): Promise<ShipmentDTO> {
             purchasedFrom: parsed.merchant ?? null,
             isShippingEmail: !!parsed.is_shipping_email,
             isDeliveryEmail: !!parsed.is_delivery_email,
-            trackingNumbers: parsed.tracking_numbers,
-            trackingUrls: parsed.tracking_urls,
+            trackingNumbers: tn,
+            trackingUrls: tu,
         }).returning({ id: communications.id });
         commId = inserted[0].id
     }
@@ -89,8 +91,8 @@ export async function saveShipment(ctx: saveCtx): Promise<ShipmentDTO> {
     const dto: ShipmentDTO = {
       orderId: orderRow.id,
       carrier: parsed.carrier,
-      trackingNumbers: parsed.tracking_numbers,
-      trackingUrls: parsed.tracking_urls,
+      trackingNumbers: tn,
+      trackingUrls: tu,
       merchant: parsed.merchant ?? null,
       estimatedDelivery: parsed.estimated_delivery ?? null,
       lastCommunicationAt: new Date().toISOString()
