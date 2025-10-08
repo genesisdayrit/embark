@@ -82,6 +82,11 @@ app.post('/ai/extract', async (req, res) => {
   return res.json(result)
 })
 
-ViteExpress.listen(app, 3000, () =>
-  console.log("Server is listening on port 3000..."),
-);
+// Only listen in development (Vercel handles this in production)
+if (process.env.NODE_ENV !== 'production') {
+  ViteExpress.listen(app, 3000, () =>
+    console.log("Server is listening on port 3000..."),
+  );
+}
+
+export default app;

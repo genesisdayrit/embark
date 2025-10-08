@@ -28,9 +28,6 @@ function Dashboard() {
         <div className="mt-10 flex flex-col items-start gap-5">
           <p className="font-extrabold">Upcoming deliveries</p>
           {orders.map((order) => <ItemList order={order} />)}
-          {/* <ItemList />
-          <ItemList />
-          <ItemList /> */}
         </div>
 
         <div className="w-full mt-10 flex flex-col items-start gap-5">
