@@ -19,7 +19,10 @@ export const server_auth = betterAuth({
         google: {
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-            scopes: ['openid', 'email', 'profile', 'https://www.googleapis.com/auth/gmail.readonly']
+            scopes: ['openid', 'email', 'profile', 'https://www.googleapis.com/auth/gmail.readonly'],
+            // this gets the refresh token
+            accessType: "offline",
+            prompt: "select_account consent",
         },
     },
 

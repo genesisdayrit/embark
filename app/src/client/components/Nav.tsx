@@ -1,17 +1,26 @@
 import { useState } from "react";
 import "../App.css";
+import { authClient } from "../authclient";
+import { useNavigate } from "react-router-dom";
+import Signin from "../Signin";
 
 function Nav() {
     const [count, setCount] = useState<number>(0);
+    const navigate = useNavigate()
+
+    const handleLogin = () => {
+        navigate('/login')
+    }
 
     return (
         <>
-            <ul className="font-bold mt-10 w-full h-20 flex items-center justify-center gap-70 border-b-2">
-                <li>🦉</li>
-                <div className="flex gap-10">
-                    <li className=" p-2 rounded-3xl">Home</li>
-                    <li className=" p-2 rounded-3xl">About</li>
-                    <li className=" p-2 rounded-3xl">Orders</li>
+            <ul className="relative text-[20px] font-bold w-full h-20 flex items-center justify-between">
+                <li className="pl-20">🦉</li>
+                <div className="flex gap-20 pr-20">
+                    <button onClick={handleLogin} className=" p-2 rounded-3xl">Login</button>
+                    <button className=" p-2 rounded-3xl">Home</button>
+                    <button className=" p-2 rounded-3xl">About</button>
+                    <button className=" p-2 rounded-3xl">Orders</button>
                 </div>
 
             </ul >
