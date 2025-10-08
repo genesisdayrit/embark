@@ -2,6 +2,7 @@ import { useState } from "react";
 import Nav from "./components/Nav";
 import "./App.css";
 import { Section } from "./components/SettingsSection";
+import { Switch } from "../components/ui/switch"
 
 function Settings() {
   const [count, setCount] = useState<number>(0);
@@ -24,7 +25,9 @@ function Settings() {
         <Section>
           <Section.Left>Notification</Section.Left>
           <Section.Right>
-            <Section.Row>on/off</Section.Row>
+            <Section.Row>
+              <Switch />
+            </Section.Row>
           </Section.Right>
         </Section>
 
