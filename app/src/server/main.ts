@@ -1,11 +1,11 @@
 import express, { Request, Response } from "express";
 import ViteExpress from "vite-express";
-import { server_auth } from "./auth.js";
+import { server_auth } from "./auth";
 import { toNodeHandler } from "better-auth/node";
 import 'dotenv/config'
-import { parseEmail } from "./ai/extractor/parseEmail.js"
-import { getUserOrders } from "./getUserOrders.js";
-import { fetchUserEmails } from "./gmail/index.js";
+import { parseEmail } from "./ai/extractor/parseEmail"
+import { getUserOrders } from "./getUserOrders";
+import { fetchUserEmails } from "./gmail";
 
 const app = express();
 app.use(express.json())

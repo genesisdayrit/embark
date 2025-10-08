@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --exec tsx src/server/main.ts -w src/server",
-    "start": "NODE_ENV=production node dist/server/main.js",
-    "build": "vite build && bun run build:server",
-    "build:server": "tsup src/server/main.ts --format esm --target=node20 --platform=node --out-dir dist/server --sourcemap --clean"
+    "start": "NODE_ENV=production tsx src/server/main.ts",
+    "build": "vite build"
   },
   "packageManager": "bun@^1",
   "dependencies": {
@@ -38,9 +37,7 @@
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^4.4.1",
     "drizzle-kit": "^0.31.5",
-    "esbuild": "^0.25.10",
     "nodemon": "^3.1.10",
-    "tsup": "^8.5.0",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "vite": "^6.3.3"
