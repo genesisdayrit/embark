@@ -4,12 +4,7 @@ import { server_auth } from "./auth";
 import { toNodeHandler } from "better-auth/node";
 import 'dotenv/config'
 import { parseEmail } from "./ai/extractor/parseEmail"
-
-import { db } from "@/db";
-import { orders } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
 import { getUserOrders } from "./getUserOrders";
-import { google } from "googleapis";
 import { fetchUserEmails } from "./gmail";
 
 const app = express();
@@ -21,7 +16,7 @@ app.get("/api/hello", (_req: Request, res: Response) => {
   res.send("Hello Vite + React!");
 });
 
-app.all("/api/auth/login/google", async (req: Request, res: Response) => {
+app.all("/api/auth/login/google", async (_req: Request, _res: Response) => {
 
   const response = await toNodeHandler(server_auth)
 

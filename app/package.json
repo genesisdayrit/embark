@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon --exec tsx src/server/main.ts -w src/server",
     "start": "NODE_ENV=production tsx src/server/main.ts",
-    "build": "vite build"
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.1.0-beta.12",
