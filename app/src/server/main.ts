@@ -15,7 +15,7 @@ app.all("/api/auth/*path", toNodeHandler(server_auth)); //runs, state not found 
 
 app.use(express.json())
 
-app.use(async (req, res, next) => {
+app.use(async (req, next) => {
  const session = await server_auth.api.getSession({
       headers: fromNodeHeaders(req.headers),
     });
