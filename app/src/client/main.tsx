@@ -6,6 +6,7 @@ import Home from "./Home";
 import Signin from "./Signin";
 import Settings from "./Settings";
 import Payment from "./PaymentPage";
+import Checkout from "./Checkout";
 
 const rootElement = document.getElementById("root");
 
@@ -18,7 +19,8 @@ const router = createBrowserRouter([
   { path: '/orders', element: <Dashboard /> },
   { path: '/login', element: <Signin /> },
   { path: '/settings', element: <Settings /> },
-  { path: '/payment', element: <Payment /> }
+  { path: '/payment', element: <Payment /> },
+  { path: '/checkout', element: <Checkout /> },
 
 ])
 

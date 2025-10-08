@@ -20,21 +20,21 @@ function Dashboard() {
   return (
     <>
       <Nav />
-      <p></p>
-      <div className="mt-5 flex flex-col items-start text-lg">
-        <p className="text-3xl font-extrabold">Your Orders🦉📦</p>
-        <p className="text-lg"> # number of deliveries on the way... </p>
 
-        <div className="mt-10 flex flex-col items-start gap-5">
-          <p className="font-extrabold">Upcoming deliveries</p>
+      <div className="text-4xl mt-5 flex flex-col items-start">
+        <p className="flex items-start font-extrabold w-full border-b-1 border-gray-700 pb-10 pt-10">Your Orders</p>
+
+        <div className="text-3xl w-full mt-10 flex flex-col items-start gap-5">
+          <p className="font-extrabold ">Upcoming deliveries</p>
           {orders.map((order) => <ItemList order={order} />)}
         </div>
 
-        <div className="w-full mt-10 flex flex-col items-start gap-5">
-          <p className="font-extrabold text-3xl">Delivery history</p>
+        <div className="text-3xl w-full mt-10 flex flex-col items-start gap-5">
+          <p className="font-extrabold ">Delivery history</p>
           <DeliveredItems />
         </div>
       </div>
+
     </>
   );
 }
