@@ -12,15 +12,21 @@ function Nav() {
         navigate('/login')
     }
 
+    const handleSetting = () => {
+        navigate('/settings')
+    }
+
     return (
         <>
             <ul className="relative text-[20px] font-bold w-full h-20 flex items-center justify-between">
                 <li className="pl-20">🦉</li>
                 <div className="flex gap-20 pr-20">
                     <button onClick={handleLogin} className=" p-2 rounded-3xl">Login</button>
+                    {/* <button className=" p-2 rounded-3xl">Logout</button> */}
                     <button className=" p-2 rounded-3xl">Home</button>
                     <button className=" p-2 rounded-3xl">About</button>
                     <button className=" p-2 rounded-3xl">Orders</button>
+                    <button className=" p-2 rounded-3xl">Settings</button>
                 </div>
 
             </ul >
