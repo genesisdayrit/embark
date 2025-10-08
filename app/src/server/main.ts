@@ -1,16 +1,30 @@
 import express, { Request, Response } from "express";
 import ViteExpress from "vite-express";
 import { server_auth } from "./auth";
-import { toNodeHandler } from "better-auth/node";
+import { toNodeHandler, fromNodeHeaders } from "better-auth/node";
 import 'dotenv/config'
 import { parseEmail } from "./ai/extractor/parseEmail"
 import { getUserOrders } from "./getUserOrders";
 import { fetchUserEmails } from "./gmail";
+import { gmailNormalize } from "./ingest/gmailNormalize"
+import { processEmail } from "./processEmail"
 
 const app = express();
-app.use(express.json())
 
 app.all("/api/auth/*path", toNodeHandler(server_auth)); //runs, state not found error from better auth, 404 when you go to login google. 
+
+app.use(express.json())
+
+app.use(async (req, res, next) => {
+ const session = await server_auth.api.getSession({
+      headers: fromNodeHeaders(req.headers),
+    });
+    if (session?.user?.id) (req as any).auth = { userId: session.user.id };
+next()
+} 
+)
+
+
 
 app.get("/api/hello", (_req: Request, res: Response) => {
   res.send("Hello Vite + React!");
@@ -68,13 +82,59 @@ app.get("/api/gmail/:userId", async (req: Request, res: Response) => {
   }
 });
 
+app.post("/api/shipments/ingest", async (req, res) => {
+  try {
+  const userId = req.body?.userId.trim();
+  if (!userId) return res.status(401).json({ error: "unauthorized" })
+  const emailText = req.body?.emailText?.trim()
+  if (!emailText) return res.status(400).json({ error: "emailText required" })
+
+  const normalized = { emailId: `dev${Date.now()}`, userId, rawText:emailText }
+  const dto = await processEmail(normalized)
+  res.json(dto)
+} catch (err) {
+  console.error("ingest error:", err)
+  res.status(500).json({ error: "ingest_failed" })
+}
+})
+
+app.post("/api/shipments/ingest/gmail", async (req, res) => {
+  try {
+  const userId = req.auth?.userId ?? req.body.userId
+  const lookBackPeriod = Number(req.body?.period ?? 5)
+  const messages = await fetchUserEmails({ userId, lookBackPeriod })
+  const results = await Promise.allSettled(
+    messages.map(async message => {
+      const normalized = gmailNormalize(message, userId)
+      return await processEmail(normalized)
+    })
+  )
+
+  const successes = results.filter(res => res.status === "fulfilled").map(res => (res as any).value)
+  const failures = results.filter(res => res.status === "rejected").map(res => (res as any).reason?.message ?? "unknown_error")
+
+  console.log(`gmail ingest: ${successes.length} ok, ${failures.length} failed`)
+  res.json({ successes, failures })
+} catch (err) {
+console.error("ingest/gmail error:", err);
+    res.status(500).json({ error: "gmail_ingest_failed" })
+}
+})
+
+
+
 app.post('/api/ai/extract', async (req, res) => {
+  try {
   const { emailText } = req.body ?? {}
   if (!emailText?.trim()) return res.status(400).json({ error: "emailText required" })
 
   const result = await parseEmail(emailText)
 
-  return res.json(result)
+  return res.json(result)}
+  catch (err) {
+    console.error("ingest/gmail error:", err)
+    res.status(500).json({ error: "gmail_ingest_failed" })
+  }
 })
 
 // Only listen in development (Vercel handles this in production)
