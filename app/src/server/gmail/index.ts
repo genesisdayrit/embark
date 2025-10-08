@@ -136,7 +136,7 @@ export const fetchUserEmails = async (
   const query = `after:${afterTimestamp}`;
 
   try {
-    // get list of email ids
+    // get list of emails
     const listResponse = await gmail.users.messages.list({
       userId: "me",
       q: query,
@@ -149,7 +149,7 @@ export const fetchUserEmails = async (
       return [];
     }
 
-    // fetch full details for each email
+    // fetch email details
     const emailPromises = messages.map(async (message) => {
       const messageData = await gmail.users.messages.get({
         userId: "me",
