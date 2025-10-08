@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Dashboard from "./Dashboard";
 import Home from "./Home";
 import Signin from "./Signin";
+import Settings from "./Settings";
 
 const rootElement = document.getElementById("root");
 
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
   { path: '/', element: <Home /> },
   { path: '/orders', element: <Dashboard /> },
   { path: '/login', element: <Signin /> },
-
+  { path: '/settings', element: <Settings /> }
 ])
 
 createRoot(document.getElementById('root')!).render(
