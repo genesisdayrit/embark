@@ -4,12 +4,7 @@ import { server_auth } from "./auth";
 import { toNodeHandler } from "better-auth/node";
 import 'dotenv/config'
 import { parseEmail } from "./ai/extractor/parseEmail"
-
-import { db } from "@/db";
-import { orders } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
 import { getUserOrders } from "./getUserOrders";
-import { google } from "googleapis";
 import { fetchUserEmails } from "./gmail";
 
 const app = express();
@@ -17,11 +12,11 @@ app.use(express.json())
 
 app.all("/api/auth/*path", toNodeHandler(server_auth)); //runs, state not found error from better auth, 404 when you go to login google. 
 
-app.get("/hello", (_req: Request, res: Response) => {
+app.get("/api/hello", (_req: Request, res: Response) => {
   res.send("Hello Vite + React!");
 });
 
-app.all("/api/auth/login/google", async (req: Request, res: Response) => {
+app.all("/api/auth/login/google", async (_req: Request, _res: Response) => {
 
   const response = await toNodeHandler(server_auth)
 
@@ -73,7 +68,7 @@ app.get("/api/gmail/:userId", async (req: Request, res: Response) => {
   }
 });
 
-app.post('/ai/extract', async (req, res) => {
+app.post('/api/ai/extract', async (req, res) => {
   const { emailText } = req.body ?? {}
   if (!emailText?.trim()) return res.status(400).json({ error: "emailText required" })
 

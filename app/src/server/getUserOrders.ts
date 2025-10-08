@@ -1,7 +1,5 @@
-import express, { Request, Response } from "express";
-import ViteExpress from "vite-express";
+import { Request } from "express";
 import { server_auth } from "./auth";
-import { toNodeHandler } from "better-auth/node";
 import { db } from "@/db";
 import { orders } from "@/db/schema";
 import { eq } from "drizzle-orm";
