@@ -9,6 +9,7 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "packageManager": "bun@^1",
   "dependencies": {
     "@ai-sdk/openai": "^2.1.0-beta.12",
     "@tailwindcss/vite": "^4.1.14",
