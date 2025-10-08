@@ -12,7 +12,7 @@ export const server_auth = betterAuth({
     }),
 
     trustedOrigins: [
-        "http://localhost:3000"
+        process.env.BASE_URL || "http://localhost:3000"
     ],
 
     socialProviders: {
