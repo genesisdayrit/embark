@@ -18,7 +18,10 @@ function toParsedEmail(x: any): ParsedEmail {
 }
 
 export async function processEmail(normalized: NormalizedMessage) {
-  const raw = await parseEmail(normalized.rawText)
+  const raw = await parseEmail(normalized.rawText, {
+    subject: normalized.subject,
+    fromEmail: normalized.fromEmail
+  })
   const parsed = toParsedEmail(raw)
   return await saveShipment({ ...normalized, parsed })
 }
