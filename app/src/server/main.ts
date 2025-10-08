@@ -3,9 +3,9 @@ import ViteExpress from "vite-express";
 import { server_auth } from "./auth.ts";
 import { toNodeHandler } from "better-auth/node";
 import 'dotenv/config'
-import { parseEmail } from "./ai/extractor/parseEmail.ts"
-import { getUserOrders } from "./getUserOrders.ts";
-import { fetchUserEmails } from "./gmail/index.ts";
+import { parseEmail } from "./ai/extractor/parseEmail"
+import { getUserOrders } from "./getUserOrders";
+import { fetchUserEmails } from "./gmail";
 
 const app = express();
 app.use(express.json())
