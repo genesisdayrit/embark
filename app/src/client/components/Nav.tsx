@@ -23,7 +23,7 @@ function Nav() {
     return (
         <>
             <ul className="relative font-bold w-full h-20 flex items-center justify-between">
-                <li className="pl-20">🦉</li>
+                <li className="pl-20 text-3xl">🦉📦</li>
                 <div className="flex gap-15 p-5">
                     <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleLogin} >Login</Button>
                     <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={() => navigate('/home')}>Home</Button>
