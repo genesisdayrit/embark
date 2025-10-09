@@ -1,4 +1,4 @@
-import type { NormalizedMessage } from '/Users/mohamed/Documents/fractal-fa25/project-embark/embark/app/src/server/Types.ts'
+import type { NormalizedMessage } from '../Types'
 
 export const getHeader = (msg: any, name: string): string | null =>
   msg.payload?.headers?.find((h: { name: string; value: string }) =>
