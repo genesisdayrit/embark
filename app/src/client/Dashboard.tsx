@@ -16,6 +16,12 @@ function Dashboard() {
       .catch(_e => { throw Error("Could not get user orders from server") })
   }, [])
 
+  // filter upcoming orders
+  const upcomingOrders = orders.filter(order => !order.actualDeliveryDate);
+  
+  // filter delivered orders
+  const deliveredOrders = orders.filter(order => order.actualDeliveryDate);
+
   console.log("dashboard has orders", orders)
   return (
     <>
@@ -25,12 +31,12 @@ function Dashboard() {
 
         <div className="text-2xl w-full mt-10 flex flex-col items-start gap-5">
           <p className="font-extrabold ">Upcoming deliveries</p>
-          {orders.map((order) => <ItemList order={order} />)}
+          {upcomingOrders.map((order) => <ItemList key={order.id} order={order} />)}
         </div>
 
         <div className="text-2xl w-full mt-10 flex flex-col items-start gap-5">
           <p className="font-extrabold ">Delivery history</p>
-          <DeliveredItems />
+          {deliveredOrders.map((order) => <DeliveredItems key={order.id} order={order} />)}
         </div>
       </div>
 
