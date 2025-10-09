@@ -39,6 +39,7 @@ export const communications = pgTable('communications', {
   isAvailableOrderId: boolean('is_available_order_id').default(false).notNull(),
   relatedOrderIds: uuid('related_order_ids').array(),
   merchant: text('merchant'),
+  merchant_order_no: text('merchant_order_no'),
   carrier: text('carrier'),
   purchasedFrom: text('purchased_from'),
   isShippingEmail: boolean('is_shipping_email').default(false).notNull(),

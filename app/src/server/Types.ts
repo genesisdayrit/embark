@@ -17,6 +17,7 @@ export type ParsedEmail = {
   tracking_numbers: string[];
   tracking_urls: string[];
   merchant?: string | null;
+  merchant_order_no: string | null;
   order_id?: string | null;
   estimated_delivery?: string | null; // ISO date (YYYY-MM-DD) or null
   confidence?: "high"|"medium"|"low";
