@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "../App.css";
-import { userOrders } from "../types";
+import { userOrders, getOrderStatus } from "../types";
 
 type ItemListProps = {
     order: userOrders
 }
 
 function ItemList({ order }: ItemListProps) {
+
 
     console.log("PROPS are ,", order)
 
@@ -18,8 +19,8 @@ function ItemList({ order }: ItemListProps) {
                     <p className="font-bold">Arriving on: {order.estimatedDeliveryDate?.toLocaleString()}</p>
                     <p>item mercant: {order.merchant}</p>
                     <p>tracking number: {order.trackingNumbers} </p>
-                    <p>order date:</p>
-                    <p>order status:</p>
+                    <p>order date: {order.orderDate?.toLocaleString()}</p>
+                    <p>order status: <span className="font-semibold">{getOrderStatus(order)}</span></p>
                 </div>
             </div>
         </>
