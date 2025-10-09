@@ -9,6 +9,7 @@ type ItemListProps = {
 function ItemList({ order }: ItemListProps) {
 
     console.log("PROPS are ,", order)
+    let orderDate = new Date(order.orderDate)
 
     return (
         <>
@@ -18,7 +19,7 @@ function ItemList({ order }: ItemListProps) {
                     <p className="font-bold">Arriving on: {order.estimatedDeliveryDate?.toLocaleString()}</p>
                     <p>item mercant: {order.merchant}</p>
                     <p>tracking number: {order.trackingNumbers} </p>
-                    <p>order date:</p>
+                    <p>order date: {orderDate.toLocaleString()} </p>
                     <p>order status:</p>
                 </div>
             </div>

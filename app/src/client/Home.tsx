@@ -73,7 +73,7 @@ export default function Home() {
                 <div className="flex flex-col items-center text-[50px] font-bold w-[30%] mr-40">
                     <p>Track all your packages </p>
                     <p>in one page</p>
-                    <Button className="rounded-4xl p-10 text-3xl w-100 mt-20">Free 1-month Trial</Button>
+                    <p> // screenshot here // </p>
                 </div>
             </div>
 
