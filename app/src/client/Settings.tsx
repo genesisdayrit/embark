@@ -11,7 +11,7 @@ function Settings() {
     <>
       <Nav />
       <div className="flex flex-col items-center m-auto w-[60%]">
-        <p className="text-5xl font-bold border-b-1 border-gray-300 w-full p-20">Account Settings</p>
+        <p className="text-4xl font-bold border-b-1 border-gray-300 w-full p-10">Account Settings</p>
         <Section>
           <Section.Left>Account Summary</Section.Left>
           <Section.Right>
