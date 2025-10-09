@@ -1,4 +1,6 @@
 {
+  "buildCommand": "bunx --bun vite build && bun run build:server",
+  "outputDirectory": "dist",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/(.*)", "destination": "/index.html" }

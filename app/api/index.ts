@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import serverless from 'serverless-http';
-import app from "../src/server/main.js";
+import app from "../dist/server/main.js";
 
 const handler = serverless(app);
 

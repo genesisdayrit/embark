@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon --exec tsx src/server/main.ts -w src/server",
     "start": "NODE_ENV=production tsx src/server/main.ts",
-    "build": "vite build"
+    "build": "vite build && bun run build:server",
+    "build:server": "bun build src/server/main.ts --outdir dist/server --target node --format esm --sourcemap=external --external=express --external=better-auth --external=drizzle-orm --external=postgres --external=googleapis --external=dotenv --external=serverless-http --external=vite-express --external=@ai-sdk/* --external=ai --external=zod"
   },
   "packageManager": "bun@^1",
   "dependencies": {
