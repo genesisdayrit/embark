@@ -18,7 +18,7 @@ function Dashboard() {
 
   // filter upcoming orders
   const upcomingOrders = orders.filter(order => !order.actualDeliveryDate);
-  
+
   // filter delivered orders
   const deliveredOrders = orders.filter(order => order.actualDeliveryDate);
 
@@ -27,7 +27,7 @@ function Dashboard() {
     <>
       <Nav />
       <div className="flex flex-col items-center m-auto w-[60%]">
-        <p className="text-4xl font-bold border-b-1 border-gray-300 w-full p-20">Your Orders</p>
+        <p className="text-4xl font-bold border-b-1 border-gray-300 w-full p-10">Your Orders</p>
 
         <div className="text-2xl w-full mt-10 flex flex-col items-start gap-5">
           <p className="font-extrabold ">Upcoming deliveries</p>

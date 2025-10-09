@@ -21,10 +21,20 @@ function ItemList({ order }: ItemListProps) {
                     <p className="border border-1 w-full mt-5"></p>
                 </div>
 
-                <div className="flex text-base">
+                <div className="flex text-base items-start">
                     <p className="relative border border-2 rounded-xl w-[30%] h-30">item img</p>
                     <div className="flex flex-col justify-start items-start">
-                        <p className="ml-10">Tracking #: {order.trackingUrls}</p>
+                        {order.trackingUrls && order.trackingUrls.length > 0 ? (
+                            <a
+                                href={order.trackingUrls[0]}
+                                target="_blank"
+                                className="text-blue-600 underline"
+                            >
+                                Track your package
+                            </a>
+                        ) : (
+                            <span></span>
+                        )}
                     </div>
 
                 </div>
