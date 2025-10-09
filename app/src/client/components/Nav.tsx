@@ -25,14 +25,12 @@ function Nav() {
             <ul className="relative font-bold w-full h-20 flex items-center justify-between">
                 <li className="pl-20">🦉</li>
                 <div className="flex gap-15 p-5">
-                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800" onClick={handleLogin} >Login</Button>
-                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800" onClick={() => navigate('/home')}>Home</Button>
-                    {/* <button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800" >About</button> */}
-                    {/* <button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800">Orders</button> */}
-                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800" onClick={handleSettings}>Settings</Button>
+                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleLogin} >Login</Button>
+                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={() => navigate('/home')}>Home</Button>
+                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleSettings}>Settings</Button>
 
                     {/* only shows up when they log in */}
-                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800" onClick={handleOrders}>Orders</Button>
+                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleOrders}>Orders</Button>
                 </div>
             </ul >
         </>
