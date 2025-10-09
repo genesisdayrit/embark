@@ -2,3 +2,5 @@
 DEV-NOTES.md 
 app/src/server/temp/*
 .vercel
+node_modules/
+node_modules/
