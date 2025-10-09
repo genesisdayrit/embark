@@ -28,10 +28,10 @@ function Dashboard() {
           {orders.map((order) => <ItemList order={order} />)}
         </div>
 
-        {/* <div className="text-2xl w-full mt-10 flex flex-col items-start gap-5">
+        <div className="text-2xl w-full mt-10 flex flex-col items-start gap-5">
           <p className="font-extrabold ">Delivery history</p>
           <DeliveredItems />
-        </div> */}
+        </div>
       </div>
 
     </>
