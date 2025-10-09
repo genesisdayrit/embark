@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import Nav from "./components/Nav";
 import "./App.css";
+import { Button } from "@/components/ui/button";
 
 type BoxCfg = {
     id: number;
@@ -62,11 +63,18 @@ export default function Home() {
             className="relative h-screen w-full overflow-hidden"
         >
             <Nav />
-            <div className="text-[120px] font-bold">
-                <p>Where are</p>
-                <p>All Your</p>
-                <p className="font-extrabold text-[#D4A373]">Packages</p>
-                <p>at?</p>
+            <div className="flex items-center m-20">
+                <div className="text-[140px] font-bold w-[70%]">
+                    <p>Where are</p>
+                    <p>All Your</p>
+                    <p className="font-extrabold text-[#D4A373]">Packages</p>
+                    <p>at?</p>
+                </div>
+                <div className="flex flex-col items-center text-[60px] font-bold w-[30%] mr-40">
+                    <p>Track all your packages </p>
+                    <p>in one page</p>
+                    <Button className="rounded-4xl p-10 text-3xl w-100 mt-20">Free 1-month Trial</Button>
+                </div>
             </div>
 
             {adjusted.map(b => {
