@@ -12,7 +12,7 @@ export const orders = pgTable('orders', {
   actualDeliveryDate: timestamp('actual_delivery_date'),
   merchant: text('merchant'),
   merchant_order_no: text('merchant_order_no'),
-  merchant_image_url: text('merchant'),
+  merchant_image_url: text('merchant_image_url'),
   orderInfo: jsonb('order_info'),
   lastCommunicationAt: timestamp('last_communication_at'),
   relatedCommunicationIds: uuid('related_communication_ids').array(),
