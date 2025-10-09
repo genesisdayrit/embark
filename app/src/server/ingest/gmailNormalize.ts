@@ -1,42 +1,47 @@
-import type { NormalizedMessage } from '/Users/mohamed/Documents/fractal-fa25/project-embark/embark/app/src/server/Types.ts'
+import type { NormalizedMessage } from '../Types'
+
 
 export const getHeader = (msg: any, name: string): string | null =>
-  msg.payload?.headers?.find((h: { name: string; value: string }) =>
-    h.name?.toLowerCase() === name.toLowerCase()
-  )?.value ?? null
+ msg.payload?.headers?.find((h: { name: string; value: string }) =>
+   h.name?.toLowerCase() === name.toLowerCase()
+ )?.value ?? null
+
 
 export function findPlain(msg: any): string | null {
 
-  const walk = (p:any): string | null =>
-    p?.mimeType === 'text/plain' && p.body?.data ? p.body.data :
-    Array.isArray(p?.parts) ? (p.parts.map(walk).find(Boolean) ?? null) : null
 
-  return walk(msg.payload) ?? null
+ const walk = (p:any): string | null =>
+   p?.mimeType === 'text/plain' && p.body?.data ? p.body.data :
+   Array.isArray(p?.parts) ? (p.parts.map(walk).find(Boolean) ?? null) : null
+
+
+ return walk(msg.payload) ?? null
 }
+
 
 export function findHtml(msg: any): string | null {
-  const walk = (p: any): string | null =>
-    p?.mimeType === 'text/html' && p.body?.data ? p.body.data :
-    Array.isArray(p?.parts) ? (p.parts.map(walk).find(Boolean) ?? null) : null
-  return walk(msg.payload) ?? null;
+ const walk = (p: any): string | null =>
+   p?.mimeType === 'text/html' && p.body?.data ? p.body.data :
+   Array.isArray(p?.parts) ? (p.parts.map(walk).find(Boolean) ?? null) : null
+ return walk(msg.payload) ?? null;
 }
+
 
 export const b64url = (s:string) => Buffer.from(s.replace(/-/g,'+').replace(/_/g,'/'), 'base64').toString('utf8')
 
+
 export const stripHtml = (html:string) => html.replace(/<style[\s\S]*?<\/style>/gi,'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim()
 
-export function gmailNormalize(msg: any, userId: string): NormalizedMessage {
-  const plain = findPlain(msg);
-  const html  = !plain ? findHtml(msg) : null;          
-  const raw   = plain ? b64url(plain) : html ? stripHtml(b64url(html)) : '';
-  const rawText = raw.trim();
 
-  return {
-    emailId: msg.id,
-    userId,
-    rawText,
-    subject: getHeader(msg, 'Subject'),
-    fromEmail: getHeader(msg, 'From'),
-    receivedAt: msg.internalDate ? new Date(+msg.internalDate).toISOString() : null,
-      }
+// for the already processed emails from fetchUserEmails
+export function gmailNormalize(msg: any, userId: string): NormalizedMessage {
+ return {
+   emailId: msg.id,
+   userId,
+   rawText: msg.body || msg.snippet || '',
+   subject: msg.subject || null,
+   fromEmail: msg.from || null,
+   receivedAt: msg.date ? new Date(msg.date).toISOString() : null,
+ }
 }
+

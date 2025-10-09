@@ -10,6 +10,7 @@ import { gmailNormalize } from "./ingest/gmailNormalize"
 import { processEmail } from "./processEmail"
 
 const app = express();
+console.log("[BOOT] server starting… PID", process.pid);
 
 app.all("/api/auth/*path", toNodeHandler(server_auth)); //runs, state not found error from better auth, 404 when you go to login google. 
 
@@ -106,6 +107,7 @@ app.post("/api/shipments/ingest/gmail", async (req, res) => {
   const results = await Promise.allSettled(
     messages.map(async message => {
       const normalized = gmailNormalize(message, userId)
+      console.log("normalized sample:", normalized)
       return await processEmail(normalized)
     })
   )
