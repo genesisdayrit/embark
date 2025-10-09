@@ -26,3 +26,17 @@ export function getOrderStatus(order: userOrders): OrderStatus {
     }
     return "Order Processing";
 }
+
+// Format date like "Thu, Oct 9, 2025"
+export function formatDate(date: Date | null | undefined): string {
+  if (!date) return "Not available";
+  
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  };
+  
+  return new Date(date).toLocaleDateString('en-US', options);
+}

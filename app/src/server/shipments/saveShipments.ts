@@ -44,7 +44,7 @@ export async function saveShipment(shipmentContext: saveCtx): Promise<ShipmentDT
     } else {
       const inserted = await transaction.insert(orders).values({
         userId,
-        orderDate: new Date(),
+        orderDate: new Date(), // TODO: update this to actual order date
         trackingNumbers: trackingNumbers,
         trackingUrls: trackingUrls,
         estimatedDeliveryDate: parsed.estimated_delivery ? new Date(parsed.estimated_delivery) : null,
