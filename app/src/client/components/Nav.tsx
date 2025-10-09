@@ -28,17 +28,17 @@ function Nav() {
                 <div className="flex gap-15 p-5">
                     {(!user.email) && (
                         <>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleLogin} >Login</Button>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={() => navigate('/home')}>Home</Button>
+                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-black-800 text-xl hover:text-white" onClick={handleLogin} >Login</Button>
+                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-black-800 text-xl hover:text-white" onClick={() => navigate('/home')}>Home</Button>
                         </>
                     )}
 
                     {(user.email) && (
                         <>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={() => navigate('/home')}>Home</Button>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleOrders}>Orders</Button>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleSettings}>Settings</Button>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl">Log out</Button>
+                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-black-800 text-xl hover:text-white" onClick={() => navigate('/home')}>Home</Button>
+                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-black-800 text-xl hover:text-white" onClick={handleOrders}>Orders</Button>
+                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-black-800 text-xl hover:text-white" onClick={handleSettings}>Settings</Button>
+                            <Button className="bg-[#CCD5AE] rounded-4xl text-black-80 p-5 text-xl hover:text-white">Log out</Button>
                         </>)}
                 </div>
             </ul >
