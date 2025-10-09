@@ -14,3 +14,15 @@ export type userOrders = {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export type OrderStatus = "Delivered" | "In Transit" | "Order Processing";
+
+export function getOrderStatus(order: userOrders): OrderStatus {
+    if (order.actualDeliveryDate) {
+        return "Delivered";
+    }
+    if (order.shipmentDate) {
+        return "In Transit";
+    }
+    return "Order Processing";
+}
