@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { authClient } from "./authclient";
-import { Navigate, redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import { Button } from "../components/ui/button"
 import Nav from "./components/Nav";
@@ -34,6 +34,7 @@ function Signin() {
         <p className="mt-2">
           Connect Gmail to auto-collect tracking emails.
         </p>
+      </div>
         <button
           onClick={signIn}
           className="inline-flex  bg-[#E9EDC9] items-center justify-center gap-2 mt-4">
@@ -44,8 +45,7 @@ function Signin() {
           />
           <span className="font-medium">Sign in with your Gmail</span>
         </button>
-      </div>
-    </>
+    </div>
   );
 }
 
