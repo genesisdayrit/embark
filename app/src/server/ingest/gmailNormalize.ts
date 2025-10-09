@@ -33,7 +33,6 @@ export const b64url = (s:string) => Buffer.from(s.replace(/-/g,'+').replace(/_/g
 export const stripHtml = (html:string) => html.replace(/<style[\s\S]*?<\/style>/gi,'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim()
 
 
-// for the already processed emails from fetchUserEmails
 export function gmailNormalize(msg: any, userId: string): NormalizedMessage {
  return {
    emailId: msg.id,
