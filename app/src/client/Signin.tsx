@@ -30,7 +30,7 @@ function Signin() {
           </div>
           <button
             onClick={signIn}
-            className="inline-flex items-center justify-center gap-2 mt-10 bg-white text-black-800 text-2xl p-10 rounded-4xl transform transition active:scale-105">
+            className="inline-flex items-center justify-center gap-2 mt-10 bg-white text-black-800 text-2xl p-5 rounded-4xl transform transition active:scale-105">
             <img
               src="https://developers.google.com/identity/images/g-logo.png"
               alt="Google Logo"
