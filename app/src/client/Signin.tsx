@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./App.css";
 import { authClient } from "./authclient";
-import { redirect } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { Navigate, redirect } from "react-router-dom";
 
+import { Button } from "../components/ui/button"
+import Nav from "./components/Nav";
 
 function Signin() {
 
@@ -44,7 +45,7 @@ function Signin() {
           <span className="font-medium">Sign in with your Gmail</span>
         </button>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -16,7 +16,7 @@ function Section({ children }: SectionProps) {
 
 function Left({ children }: SectionProps) {
   return (
-    <div className="w-[30%] text-4xl font-bold">
+    <div className="w-[30%] text-2xl font-bold">
       {children}
     </div>
   );
@@ -24,7 +24,7 @@ function Left({ children }: SectionProps) {
 
 function Right({ children }: SectionProps) {
   return (
-    <div className="w-[70%] ml-20 items-start flex flex-col gap-10 text-2xl">
+    <div className="w-[70%] ml-20 items-start flex flex-col gap-10 text-xl">
       {children}
     </div>
   );
