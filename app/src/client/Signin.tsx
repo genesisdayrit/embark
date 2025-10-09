@@ -1,9 +1,18 @@
 import { useState } from "react";
 import "./App.css";
 import { authClient } from "./authclient";
+import { redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+
 
 function Signin() {
-  const [count, setCount] = useState<number>(0);
+
+  //Redirect if logged in
+  const { data: session } = authClient.useSession()
+
+  if (session) {
+    return <Navigate to='/orders' replace />
+  }
 
   const signIn = async () => {
     const data = await authClient.signIn.social({
@@ -26,7 +35,7 @@ function Signin() {
         </p>
         <button
           onClick={signIn}
-          className="inline-flex items-center justify-center gap-2 mt-4">
+          className="inline-flex  bg-[#E9EDC9] items-center justify-center gap-2 mt-4">
           <img
             src="https://developers.google.com/identity/images/g-logo.png"
             alt="Google Logo"

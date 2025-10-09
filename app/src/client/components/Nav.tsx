@@ -12,7 +12,7 @@ function Nav() {
         navigate('/login')
     }
 
-    const handleSetting = () => {
+    const handleSettings = () => {
         navigate('/settings')
     }
 
@@ -22,10 +22,10 @@ function Nav() {
                 <li className="pl-20">🦉</li>
                 <div className="flex gap-15 p-5">
                     <button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800" onClick={handleLogin} >Login</button>
-                    <button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800" >Home</button>
-                    <button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800" >About</button>
-                    <button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800">Orders</button>
-                    <button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800">Settings</button>
+                    <button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800" onClick={() => navigate('/home')}>Home</button>
+                    {/* <button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800" >About</button> */}
+                    {/* <button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800">Orders</button> */}
+                    <button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl text-black-800" onClick={handleSettings}>Settings</button>
                 </div>
 
             </ul >
