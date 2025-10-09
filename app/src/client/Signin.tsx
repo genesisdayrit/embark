@@ -16,10 +16,10 @@ function Signin() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-3xl w-[50%] items-center">
       <p className="text-5xl">🦉</p>
-      <p className="mt-5 text-3xl">Tracking your packages ... </p>
-      <p className="text-3xl">hoot hoot</p>
+      <p className="mt-5 text-5xl">Tracking your packages ... </p>
+      <p className="text-4xl">hoot hoot</p>
       <div className="rounded-3xl mt-15 p-5 bg-[#E9EDC9]">
         <p className="mt-2">
           Connect Gmail to auto-collect tracking emails.
