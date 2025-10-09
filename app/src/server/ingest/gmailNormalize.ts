@@ -1,6 +1,5 @@
 import type { NormalizedMessage } from '../Types'
 
-
 export const getHeader = (msg: any, name: string): string | null =>
  msg.payload?.headers?.find((h: { name: string; value: string }) =>
    h.name?.toLowerCase() === name.toLowerCase()
