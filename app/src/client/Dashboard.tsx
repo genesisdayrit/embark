@@ -21,14 +21,14 @@ function Dashboard() {
     <>
       <Nav />
       <div className="flex flex-col items-center m-auto w-[60%]">
-        <p className="text-5xl font-bold border-b-1 border-gray-300 w-full p-20">Your Orders</p>
+        <p className="text-4xl font-bold border-b-1 border-gray-300 w-full p-20">Your Orders</p>
 
-        <div className="text-3xl w-full mt-10 flex flex-col items-start gap-5">
+        <div className="text-2xl w-full mt-10 flex flex-col items-start gap-5">
           <p className="font-extrabold ">Upcoming deliveries</p>
           {orders.map((order) => <ItemList order={order} />)}
         </div>
 
-        <div className="text-3xl w-full mt-20 flex flex-col items-start gap-5">
+        <div className="text-2xl w-full mt-10 flex flex-col items-start gap-5">
           <p className="font-extrabold ">Delivery history</p>
           <DeliveredItems />
         </div>

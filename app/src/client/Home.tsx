@@ -64,13 +64,13 @@ export default function Home() {
         >
             <Nav />
             <div className="flex items-center m-20">
-                <div className="text-[140px] font-bold w-[70%]">
+                <div className="text-[110px] font-bold w-[70%]">
                     <p>Where are</p>
                     <p>All Your</p>
                     <p className="font-extrabold text-[#D4A373]">Packages</p>
                     <p>at?</p>
                 </div>
-                <div className="flex flex-col items-center text-[60px] font-bold w-[30%] mr-40">
+                <div className="flex flex-col items-center text-[50px] font-bold w-[30%] mr-40">
                     <p>Track all your packages </p>
                     <p>in one page</p>
                     <Button className="rounded-4xl p-10 text-3xl w-100 mt-20">Free 1-month Trial</Button>
