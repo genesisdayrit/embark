@@ -7,16 +7,16 @@ import crypto from "node:crypto"
 
 type saveCtx = NormalizedMessage & { parsed: ParsedEmail }
 
-export async function saveShipment(ctx: saveCtx): Promise<ShipmentDTO> {
-  const { userId, parsed } = ctx;
+export async function saveShipment(shipmentContext: saveCtx): Promise<ShipmentDTO> {
+  const { userId, parsed } = shipmentContext;
   const trackingNumbers = [...new Set((parsed.tracking_numbers ?? []).map(t => t.trim()).filter(Boolean))]
   const trackingUrls = [...new Set((parsed.tracking_urls ?? []).map(u => u.trim()).filter(Boolean))]
   const tracking = trackingNumbers[0]
   if (!tracking) throw new Error("no_tracking_number")
 
-  return db.transaction(async (tx) => {
+  return db.transaction(async (transaction) => {
 
-    const existingOrder = await tx
+    const existingOrder = await transaction
       .select()
       .from(orders)
       .where(and(
@@ -28,47 +28,51 @@ export async function saveShipment(ctx: saveCtx): Promise<ShipmentDTO> {
 
     let orderRow;
     if (existingOrder.length) {
-      const updated = await tx.update(orders).set({
+      const updates: any = {
         trackingNumbers: trackingNumbers,
         trackingUrls: trackingUrls,
         estimatedDeliveryDate: parsed.estimated_delivery ? new Date(parsed.estimated_delivery) : null,
         updatedAt: new Date(),
         lastCommunicationAt: new Date()
-      })
+      }
+      if (parsed.merchant) updates.merchant = parsed.merchant
+
+      const updated = await transaction.update(orders).set(updates)
       .where(eq(orders.id, existingOrder[0].id))
       .returning();
       orderRow = updated[0];
     } else {
-      const inserted = await tx.insert(orders).values({
+      const inserted = await transaction.insert(orders).values({
         userId,
-        orderDate: new Date(),
+        orderDate: new Date(), // TODO: update this to actual order date
         trackingNumbers: trackingNumbers,
         trackingUrls: trackingUrls,
         estimatedDeliveryDate: parsed.estimated_delivery ? new Date(parsed.estimated_delivery) : null,
-        lastCommunicationAt: new Date()
+        lastCommunicationAt: new Date(),
+        merchant: parsed.merchant ?? null,
       }).returning();
       orderRow = inserted[0];
     }
 
-    const contentHash = crypto.createHash("md5").update(ctx.rawText).digest("hex")
+    const contentHash = crypto.createHash("md5").update(shipmentContext.rawText).digest("hex")
 
-    const existingComm = await tx
+    const existingComm = await transaction
     .select({ id: communications.id })
     .from(communications)
     .where(and(
-        eq(communications.userId, ctx.userId),
+        eq(communications.userId, shipmentContext.userId),
         sql`md5(${communications.content}) = ${contentHash}`
     ))
     .limit(1)
 
     let commId = existingComm[0]?.id
     if (!commId) {
-        const inserted = await tx.insert(communications).values({
-            userId: ctx.userId,
+        const inserted = await transaction.insert(communications).values({
+            userId: shipmentContext.userId,
             communicationType: "email",
-            subject: ctx.subject ?? null,
-            content: ctx.rawText,
-            fromEmail: ctx.fromEmail ?? null,
+            subject: shipmentContext.subject ?? null,
+            content: shipmentContext.rawText,
+            fromEmail: shipmentContext.fromEmail ?? null,
             isOrderCommunication: !!parsed.is_shipping_email,
             isAvailableOrderId: !!parsed.order_id,
             carrier: parsed.carrier,
@@ -82,7 +86,7 @@ export async function saveShipment(ctx: saveCtx): Promise<ShipmentDTO> {
     }
 
     if (commId) {
-    await tx.update(communications)
+    await transaction.update(communications)
     .set({ relatedOrderIds: [orderRow.id] })
     .where(eq(communications.id, commId))        
     }
@@ -93,7 +97,7 @@ export async function saveShipment(ctx: saveCtx): Promise<ShipmentDTO> {
       carrier: parsed.carrier,
       trackingNumbers: trackingNumbers,
       trackingUrls: trackingUrls,
-      merchant: parsed.merchant ?? null,
+      merchant: orderRow.merchant ?? parsed.merchant ?? null,
       estimatedDelivery: parsed.estimated_delivery ?? null,
       lastCommunicationAt: new Date().toISOString()
       

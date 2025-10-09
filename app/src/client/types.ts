@@ -14,3 +14,29 @@ export type userOrders = {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export type OrderStatus = "Delivered" | "In Transit" | "Order Processing";
+
+export function getOrderStatus(order: userOrders): OrderStatus {
+    if (order.actualDeliveryDate) {
+        return "Delivered";
+    }
+    if (order.shipmentDate) {
+        return "In Transit";
+    }
+    return "Order Processing";
+}
+
+// Format date like "Thu, Oct 9, 2025"
+export function formatDate(date: Date | null | undefined): string {
+  if (!date) return "Not available";
+  
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  };
+  
+  return new Date(date).toLocaleDateString('en-US', options);
+}
