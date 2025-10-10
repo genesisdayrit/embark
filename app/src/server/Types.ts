@@ -7,6 +7,7 @@ export type NormalizedMessage = {
   fromEmail?: string | null
   receivedAt?: string | null; 
   threadId?: string | null;
+  merchantImageUrl?: string | null;
 };
 
 
