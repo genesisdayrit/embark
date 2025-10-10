@@ -16,13 +16,13 @@ function DeliveredItems({ order }: ItemListProps) {
 
                 <div className="flex text-base gap-4">
                     <div className="relative border border-2 rounded-xl w-[30%] h-30 overflow-hidden flex items-center justify-center bg-gray-50">
-                        {order.merchantImageUrl ? (
+                        {order.merchantImageUrl && order.merchantImageUrl.trim() !== '' ? (
                             <img 
                                 src={order.merchantImageUrl} 
                                 className="w-full h-full object-contain"
                             />
                         ) : (
-                            <span className="text-gray-400 text-sm">No image</span>
+                            <span className="text-gray-400 text-sm">No Image</span>
                         )}
                     </div>
                     <div className="flex flex-col justify-start items-start">
