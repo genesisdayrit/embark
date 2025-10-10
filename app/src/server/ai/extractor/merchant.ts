@@ -1,7 +1,7 @@
 const sampleKnownMerchants = new Map([ ['amazon', 'Amazon'], ['nike', 'Nike'], ['etsy', 'Etsy'] ]);
 
 
-export function detectMerchantHeuristic({ subject, fromEmail, body }: { subject?: string | null; fromEmail?: string | null; body: string; }): string | null {
+export function detectMerchantHeuristic({ subject, fromEmail, body }: { subject?: string | null; fromEmail?: string | null; body: string; links: string[] | null}): string | null {
     const text = (str?: string | null) => (str ?? "").toLowerCase()
 
 
