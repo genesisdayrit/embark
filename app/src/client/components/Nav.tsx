@@ -21,25 +21,32 @@ function Nav() {
         navigate('/orders')
     }
 
+    async function logout() {
+        await authClient.signOut({
+            fetchOptions: {
+                onSuccess: () => {
+                    navigate("/home");
+                },
+            },
+        });
+    }
+
     return (
         <>
             <ul className="relative font-bold w-full h-20 flex items-center justify-between">
-                <li className="pl-20 text-3xl">🦉📦</li>
+                <li className="pl-20 text-4xl">🦉📦</li>
                 <div className="flex gap-15 p-5">
-                    {(!user.email) && (
-                        <>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleLogin} >Login</Button>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={() => navigate('/home')}>Home</Button>
-                        </>
-                    )}
+                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={() => navigate('/home')}>Home</Button>
 
-                    {(user.email) && (
-                        <>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={() => navigate('/home')}>Home</Button>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleOrders}>Orders</Button>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleSettings}>Settings</Button>
-                            <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl">Log out</Button>
-                        </>)}
+
+                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleLogin} >Login</Button>
+
+
+                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={() => navigate('/home')}>Home</Button>
+                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleOrders}>Orders</Button>
+                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={handleSettings}>Settings</Button>
+                    <Button className="bg-[#CCD5AE] rounded-4xl p-5 text-xl" onClick={logout}>Log out</Button>
+
                 </div>
             </ul >
         </>
