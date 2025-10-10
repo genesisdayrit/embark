@@ -17,7 +17,16 @@ function ItemList({ order }: ItemListProps) {
                 </div>
 
                 <div className="flex text-base items-start gap-10 mb-5">
-                    <p className="relative border border-2 rounded-xl w-[30%] h-30">item img</p>
+                    <div className="relative border border-2 rounded-xl w-[30%] h-30 overflow-hidden flex items-center justify-center bg-gray-50">
+                        {order.merchantImageUrl ? (
+                            <img 
+                                src={order.merchantImageUrl} 
+                                className="w-full h-full object-contain"
+                            />
+                        ) : (
+                            <span className="text-gray-400 text-sm">No image</span>
+                        )}
+                    </div>
                     <div className="flex flex-col justify-start items-start">
                         {order.trackingUrls && order.trackingUrls.length > 0 ? (
                             <a
