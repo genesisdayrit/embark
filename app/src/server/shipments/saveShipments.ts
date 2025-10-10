@@ -103,6 +103,7 @@ export async function saveShipment(shipmentContext: saveCtx): Promise<ShipmentDT
       trackingNumbers: trackingNumbers,
       trackingUrls: trackingUrls,
       merchant: orderRow.merchant ?? parsed.merchant ?? null,
+      merchantImageUrl: orderRow.merchantImageUrl ?? null,
       estimatedDelivery: parsed.estimated_delivery ?? null,
       lastCommunicationAt: new Date().toISOString()
       

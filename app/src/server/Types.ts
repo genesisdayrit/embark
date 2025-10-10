@@ -32,6 +32,7 @@ export type ShipmentDTO = {
   trackingNumbers: string[];
   trackingUrls: string[];
   merchant: string | null;
+  merchantImageUrl?: string | null;
   estimatedDelivery: string | null;
   latestStatus?: { timestamp: string; status: string; location?: string | null } | null; // if/when you add events
   lastCommunicationAt?: string | null;
