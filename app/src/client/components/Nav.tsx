@@ -9,6 +9,7 @@ import { user } from "../../db/auth-schema"
 
 function Nav() {
     const [session, setSession] = useState(null)
+
     useEffect(() => {
         authClient.getSession().then((data) => {
             setSession(data.data.session)
