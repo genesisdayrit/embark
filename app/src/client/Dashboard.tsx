@@ -3,6 +3,7 @@ import "./App.css";
 import ItemList from "./components/ItemList";
 import DeliveredItems from "./components/Delivereditems";
 import Nav from "./components/Nav";
+import EmailEventsToggle from "./components/EmailEventsToggle";
 import type { userOrders } from "./types";
 import { Button } from "../components/ui/button";
 import { authClient } from "./authclient";
@@ -83,6 +84,11 @@ function Dashboard() {
       <Nav />
       <div className="flex flex-col items-center m-auto w-[60%]">
         <p className="text-4xl font-bold border-b-1 border-gray-300 w-full p-10">Your Orders</p>
+
+        {/* Pub/Sub Test Component */}
+        <div className="w-full mt-6">
+          <EmailEventsToggle />
+        </div>
 
         <div className="text-2xl w-full mt-10 flex flex-col items-start gap-5">
           <div className="w-full flex justify-between items-center">

@@ -11,6 +11,7 @@
   "packageManager": "bun@^1",
   "dependencies": {
     "@ai-sdk/openai": "^2.1.0-beta.12",
+    "@google-cloud/pubsub": "^5.2.0",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-switch": "^1.2.6",
     "@stripe/react-stripe-js": "^5.2.0",

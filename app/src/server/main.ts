@@ -8,6 +8,8 @@ import { getUserOrders } from "./getUserOrders";
 import { fetchUserEmails } from "./gmail";
 import { gmailNormalize } from "./ingest/gmailNormalize"
 import { processEmail } from "./processEmail"
+import { registerGmailWatch } from "./gmail/watch"
+import { setupPubSubInfrastructure, checkPubSubInfrastructure } from "./pubsub/setup"
 
 const app = express();
 console.log("[BOOT] server starting… PID", process.pid);
@@ -136,6 +138,147 @@ app.post('/api/ai/extract', async (req, res) => {
     res.status(500).json({ error: "gmail_ingest_failed" })
   }
 })
+
+// Gmail Watch Registration endpoint
+app.post("/api/gmail/setup-watch", async (req, res) => {
+  try {
+    const userId = req.auth?.userId || req.body.userId;
+    
+    if (!userId) {
+      return res.status(401).json({ error: "userId required" });
+    }
+    
+    const result = await registerGmailWatch(userId);
+    
+    res.json({ 
+      success: true, 
+      message: "Gmail watch registered",
+      ...result,
+    });
+  } catch (error: any) {
+    console.error("Watch setup error:", error);
+    res.status(500).json({ 
+      error: "Failed to setup Gmail watch",
+      message: error.message,
+    });
+  }
+});
+
+// Pub/Sub infrastructure setup endpoint
+app.post("/api/pubsub/setup", async (_req, res) => {
+  try {
+    const result = await setupPubSubInfrastructure();
+    
+    res.json({
+      success: true,
+      message: "Pub/Sub infrastructure created successfully",
+      ...result,
+    });
+  } catch (error: any) {
+    console.error("Pub/Sub setup error:", error);
+    res.status(500).json({
+      error: "Failed to setup Pub/Sub infrastructure",
+      message: error.message,
+    });
+  }
+});
+
+// Check Pub/Sub infrastructure status
+app.get("/api/pubsub/status", async (_req, res) => {
+  try {
+    const status = await checkPubSubInfrastructure();
+    res.json(status);
+  } catch (error: any) {
+    console.error("Pub/Sub status check error:", error);
+    res.status(500).json({
+      error: "Failed to check Pub/Sub status",
+      message: error.message,
+    });
+  }
+});
+
+// Pub/Sub enable endpoint (for testing component)
+app.post("/api/enable-pubsub", async (req, res) => {
+  try {
+    const userId = req.auth?.userId || req.body.userId;
+    
+    if (!userId) {
+      return res.status(401).json({ error: "userId required" });
+    }
+    
+    // First, ensure Pub/Sub infrastructure exists
+    console.log("[Enable] Checking Pub/Sub infrastructure...");
+    const infraStatus = await checkPubSubInfrastructure();
+    
+    if (!infraStatus.exists) {
+      console.log("[Enable] Creating Pub/Sub infrastructure...");
+      await setupPubSubInfrastructure();
+    }
+    
+    // Then register Gmail watch
+    const result = await registerGmailWatch(userId);
+    
+    res.json({ 
+      success: true, 
+      message: `Pub/Sub enabled! Watch expires at ${result.expiration}`,
+      historyId: result.historyId,
+      expiration: result.expiration,
+    });
+  } catch (error: any) {
+    console.error("Enable Pub/Sub error:", error);
+    res.status(500).json({ 
+      error: "Failed to enable Pub/Sub",
+      message: error.message,
+    });
+  }
+});
+
+// Pub/Sub test publish endpoint
+app.post("/api/publish-email", async (req, res) => {
+  try {
+    const { email } = req.body;
+    
+    if (!email || !email.id) {
+      return res.status(400).json({ error: "email object with id required" });
+    }
+    
+    // Ensure infrastructure exists before publishing
+    const infraStatus = await checkPubSubInfrastructure();
+    
+    if (!infraStatus.exists) {
+      console.log("[Publish] Topic doesn't exist, creating infrastructure...");
+      await setupPubSubInfrastructure();
+    }
+    
+    // Import PubSub dynamically to avoid errors if not installed
+    const { PubSub } = await import("@google-cloud/pubsub");
+    
+    const pubsub = new PubSub({
+      projectId: process.env.GCP_PROJECT_ID,
+    });
+    
+    const topicName = "gmail-events";
+    const topic = pubsub.topic(topicName);
+    
+    // Publish the test message
+    const dataBuffer = Buffer.from(JSON.stringify(email));
+    const messageId = await topic.publishMessage({ data: dataBuffer });
+    
+    console.log(`[Test] Published test email event with messageId: ${messageId}`);
+    
+    res.json({
+      success: true,
+      messageId,
+      message: "Test email event published successfully",
+    });
+  } catch (error: any) {
+    console.error("Publish test email error:", error);
+    res.status(500).json({
+      error: "Failed to publish test email",
+      message: error.message,
+    });
+  }
+});
 
 // Only listen in development (Vercel handles this in production)
 if (process.env.NODE_ENV !== 'production') {
