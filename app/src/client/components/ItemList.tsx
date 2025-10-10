@@ -1,5 +1,6 @@
 import "../App.css";
 import { userOrders, getOrderStatus, formatDate } from "../types";
+import { Button } from "../../components/ui/button";
 
 type ItemListProps = {
     order: userOrders
@@ -17,10 +18,10 @@ function ItemList({ order }: ItemListProps) {
                 </div>
 
                 <div className="flex text-base items-start gap-10 mb-5">
-                    <div className="relative border border-2 rounded-xl w-[30%] h-30 overflow-hidden flex items-center justify-center bg-gray-50">
+                    <div className="relative border border-2 rounded-xl w-[20%] h-40 overflow-hidden flex items-center justify-center bg-gray-50">
                         {order.merchantImageUrl ? (
-                            <img 
-                                src={order.merchantImageUrl} 
+                            <img
+                                src={order.merchantImageUrl}
                                 className="w-full h-full object-contain"
                             />
                         ) : (
@@ -29,13 +30,13 @@ function ItemList({ order }: ItemListProps) {
                     </div>
                     <div className="flex flex-col justify-start items-start">
                         {order.trackingUrls && order.trackingUrls.length > 0 ? (
-                            <a
+                            <Button className="bg-[#CCD5AE] text-base rounded-3xl mb-3"><a
                                 href={order.trackingUrls[0]}
                                 target="_blank"
-                                className="text-blue-600 underline"
+                                className="text-black-700"
                             >
                                 Track your package
-                            </a>
+                            </a></Button>
                         ) : (
                             <span></span>
                         )}

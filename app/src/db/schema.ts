@@ -1,4 +1,4 @@
-import { boolean, pgTable, text, timestamp, uuid, jsonb} from 'drizzle-orm/pg-core';
+import { boolean, pgTable, text, timestamp, uuid, jsonb } from 'drizzle-orm/pg-core';
 import { user } from './auth-schema';
 
 export const orders = pgTable('orders', {
@@ -63,8 +63,8 @@ export const notifications = pgTable('notifications', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   sentAt: timestamp('sent_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at')
-      .notNull()
-      .$onUpdate(() => new Date()),
+    .notNull()
+    .$onUpdate(() => new Date()),
 });
 
 export type InsertNotification = typeof notifications.$inferInsert;
@@ -92,5 +92,5 @@ export const ordersTest = pgTable('orders_test', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-export type InsertOrdeTest = typeof ordersTest.$inferInsert;
+export type InsertOrderTest = typeof ordersTest.$inferInsert;
 export type SelectOrderTest = typeof ordersTest.$inferSelect;

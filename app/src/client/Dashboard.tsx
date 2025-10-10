@@ -32,7 +32,7 @@ function Dashboard() {
     try {
       setIsProcessing(true)
       setProcessingMessage(null)
-      
+
       // get the user id
       const session = await authClient.getSession()
       if (!session?.data?.user?.id) {
@@ -58,11 +58,11 @@ function Dashboard() {
 
       const result = await response.json()
       console.log('Email processing result:', result)
-      
+
       setProcessingMessage(`${result.successes?.length || 0} order emails processed`)
-      
+
       await fetchOrders()
-      
+
     } catch (error) {
       console.error('Error processing emails:', error)
       setProcessingMessage('Error processing emails. Please try again.')
@@ -88,7 +88,7 @@ function Dashboard() {
           <div className="w-full flex justify-between items-center">
             <p className="font-extrabold">Upcoming deliveries</p>
             <div className="flex flex-col items-end gap-2">
-              <Button 
+              <Button
                 onClick={handleProcessEmails}
                 disabled={isProcessing}
                 variant="outline"
@@ -97,9 +97,9 @@ function Dashboard() {
                 {isProcessing ? 'Processing...' : 'Process Orders'}
               </Button>
               {processingMessage && (
-                <p className={`text-sm ${processingMessage.includes('Error') ? 'text-red-500' : 'text-green-600'}`}>
+                <Button className={`text-sm ${processingMessage.includes('Error') ? 'text-red-500' : 'text-green-600'}`}>
                   {processingMessage}
-                </p>
+                </Button>
               )}
             </div>
           </div>
