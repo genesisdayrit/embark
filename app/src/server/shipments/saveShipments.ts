@@ -38,6 +38,7 @@ export async function saveShipment(shipmentContext: saveCtx): Promise<ShipmentDT
       }
       if (parsed.merchant) updates.merchant = parsed.merchant;
       if (parsed.merchant_order_no) updates.merchantOrderNo = parsed.merchant_order_no
+      if (shipmentContext.merchantImageUrl) updates.merchantImageUrl = shipmentContext.merchantImageUrl
 
       const updated = await transaction.update(orders).set(updates)
       .where(eq(orders.id, existingOrder[0].id))
@@ -52,7 +53,8 @@ export async function saveShipment(shipmentContext: saveCtx): Promise<ShipmentDT
         estimatedDeliveryDate: parsed.estimated_delivery ? new Date(parsed.estimated_delivery) : null,
         lastCommunicationAt: new Date(),
         merchant: parsed.merchant ?? null,
-        merchantOrderNo: parsed.merchant_order_no ?? null
+        merchantOrderNo: parsed.merchant_order_no ?? null,
+        merchantImageUrl: shipmentContext.merchantImageUrl ?? null
       }).returning();
       orderRow = inserted[0];
     }
@@ -101,6 +103,7 @@ export async function saveShipment(shipmentContext: saveCtx): Promise<ShipmentDT
       trackingNumbers: trackingNumbers,
       trackingUrls: trackingUrls,
       merchant: orderRow.merchant ?? parsed.merchant ?? null,
+      merchantImageUrl: orderRow.merchantImageUrl ?? null,
       estimatedDelivery: parsed.estimated_delivery ?? null,
       lastCommunicationAt: new Date().toISOString()
       
