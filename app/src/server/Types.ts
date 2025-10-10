@@ -7,6 +7,7 @@ export type NormalizedMessage = {
   fromEmail?: string | null
   receivedAt?: string | null; 
   threadId?: string | null;
+  merchantImageUrl?: string | null;
 };
 
 
@@ -17,6 +18,7 @@ export type ParsedEmail = {
   tracking_numbers: string[];
   tracking_urls: string[];
   merchant?: string | null;
+  merchant_order_no: string | null;
   order_id?: string | null;
   estimated_delivery?: string | null; // ISO date (YYYY-MM-DD) or null
   confidence?: "high"|"medium"|"low";
@@ -30,6 +32,7 @@ export type ShipmentDTO = {
   trackingNumbers: string[];
   trackingUrls: string[];
   merchant: string | null;
+  merchantImageUrl?: string | null;
   estimatedDelivery: string | null;
   latestStatus?: { timestamp: string; status: string; location?: string | null } | null; // if/when you add events
   lastCommunicationAt?: string | null;

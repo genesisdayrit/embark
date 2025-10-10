@@ -10,6 +10,7 @@ function toParsedEmail(x: any): ParsedEmail {
     tracking_numbers: x.tracking_numbers ?? [],
     tracking_urls: x.tracking_urls ?? [],
     merchant: x.merchant ?? null,
+    merchant_order_no: x.merchant_order_no ?? null,
     order_id: x.order_id ?? null,
     estimated_delivery: x.estimated_delivery ?? null,
     confidence: x.confidence ?? "medium",

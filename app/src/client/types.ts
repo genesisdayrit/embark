@@ -6,6 +6,8 @@ export type userOrders = {
     estimatedDeliveryDate: Date | null;
     actualDeliveryDate: Date | null;
     merchant: string | null;
+    merchantImageUrl: string | null;
+    merchantOrderNo: string | null;
     orderInfo: unknown;
     lastCommunicationAt: Date | null;
     relatedCommunicationIds: string[] | null;

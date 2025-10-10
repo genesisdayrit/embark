@@ -40,6 +40,7 @@ export function gmailNormalize(msg: any, userId: string): NormalizedMessage {
    subject: msg.subject || null,
    fromEmail: msg.from || null,
    receivedAt: msg.date ? new Date(msg.date).toISOString() : null,
+   merchantImageUrl: msg.merchantImageUrl || null,
  }
 }
 

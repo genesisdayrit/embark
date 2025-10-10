@@ -17,6 +17,8 @@ type EmailResult = {
   date: string;
   isRead: boolean;
   body?: string;
+  htmlBody?: string;
+  merchantImageUrl?: string;
 };
 
 // create google oauth client with credentials
@@ -112,6 +114,38 @@ const getAccessToken = async (userId: string): Promise<string> => {
   }
 };
 
+// extract first prominent image URL from HTML content
+const extractMerchantImageUrl = (html: string): string | null => {
+  if (!html) return null;
+  
+  // Look for img tags in the first part of the email (likely header/logo area)
+  // Match <img> tags with src attribute
+  const imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
+  const matches = [];
+  let match;
+  
+  while ((match = imgRegex.exec(html)) !== null) {
+    matches.push(match[1]);
+  }
+  
+  if (matches.length === 0) return null;
+  
+  // Filter out common non-logo images (tracking pixels, social icons, etc.)
+  const filteredImages = matches.filter(url => {
+    const lower = url.toLowerCase();
+    // Filter out tracking pixels and very small images
+    if (lower.includes('tracking') || lower.includes('pixel') || lower.includes('spacer')) return false;
+    // Filter out social media icons
+    if (lower.includes('facebook') || lower.includes('twitter') || lower.includes('instagram')) return false;
+    // Filter out common icon/button patterns
+    if (lower.includes('icon') || lower.includes('button')) return false;
+    return true;
+  });
+  
+  // Return the first filtered image (usually the merchant logo)
+  return filteredImages[0] || matches[0] || null;
+};
+
 // fetch user emails from gmail within lookback period
 export const fetchUserEmails = async (
   params: FetchEmailsParams
@@ -168,6 +202,8 @@ export const fetchUserEmails = async (
 
       // parse the email body
       let body = "";
+      let htmlBody = "";
+      
       if (messageData.data.payload?.body?.data) {
         body = Buffer.from(messageData.data.payload.body.data, "base64").toString("utf-8");
       } else if (messageData.data.payload?.parts) {
@@ -177,7 +213,18 @@ export const fetchUserEmails = async (
         if (textPart?.body?.data) {
           body = Buffer.from(textPart.body.data, "base64").toString("utf-8");
         }
+        
+        // also extract HTML for image extraction
+        const htmlPart = messageData.data.payload.parts.find(
+          (part) => part.mimeType === "text/html"
+        );
+        if (htmlPart?.body?.data) {
+          htmlBody = Buffer.from(htmlPart.body.data, "base64").toString("utf-8");
+        }
       }
+
+      // extract merchant logo from HTML
+      const merchantImageUrl = extractMerchantImageUrl(htmlBody);
 
       return {
         id: messageData.data.id!,
@@ -188,6 +235,8 @@ export const fetchUserEmails = async (
         date,
         isRead,
         body: body || messageData.data.snippet || "",
+        htmlBody: htmlBody || undefined,
+        merchantImageUrl: merchantImageUrl || undefined,
       };
     });
 
