@@ -12,8 +12,7 @@ export async function vercelExtract(emailText: string) {
     const { object } = await generateObject({
         model: openai(process.env.EXTRACTOR_MODEL!),
         schema: ExtractionSchema,
-        temperature: 0,
-        prompt: buildPrompt(emailText),
+        prompt: buildPrompt({ cleaned: emailText }),
         abortSignal: controller.signal
     });
 
