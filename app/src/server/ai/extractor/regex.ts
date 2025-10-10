@@ -6,15 +6,11 @@ export function findUPSTracks(text: string): string[] {
 }
 
 
-export function findFedExTracks(text: string): string[] {
-  return text.match(/\b(\d{12}|\d{15}|\d{20}|\d{22})\b/g) ?? []
-}
+export function findFedExTracks(t: string) { return t.match(/\b(\d{12}|\d{15}|\d{20})\b/g) ?? []; }
 
 
 
-export function findUSPSTracks(text: string): string[] {
-  return text.match(/\b\d{20,22}\b/g) ?? []
-}
+export function findUSPSTracks(t: string) { return t.match(/\b9\d{21}\b|\b9\d{19}\b/g) ?? []; }
 
 
 export function mentionsCarrier(text: string, carrier: 'UPS'|'FedEx'|'USPS'): boolean {

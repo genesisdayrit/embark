@@ -10,6 +10,7 @@ type saveCtx = NormalizedMessage & { parsed: ParsedEmail }
 export async function saveShipment(shipmentContext: saveCtx): Promise<ShipmentDTO> {
   const { userId, parsed } = shipmentContext;
   const trackingNumbers = [...new Set((parsed.tracking_numbers ?? []).map(t => t.trim()).filter(Boolean))]
+
   const trackingUrls = [...new Set((parsed.tracking_urls ?? []).map(u => u.trim()).filter(Boolean))]
   const tracking = trackingNumbers[0]
   if (!tracking) throw new Error("no_tracking_number")
@@ -35,7 +36,9 @@ export async function saveShipment(shipmentContext: saveCtx): Promise<ShipmentDT
         updatedAt: new Date(),
         lastCommunicationAt: new Date()
       }
-      if (parsed.merchant) updates.merchant = parsed.merchant
+      if (parsed.merchant) updates.merchant = parsed.merchant;
+      if (parsed.merchant_order_no) updates.merchantOrderNo = parsed.merchant_order_no
+      if (shipmentContext.merchantImageUrl) updates.merchantImageUrl = shipmentContext.merchantImageUrl
 
       const updated = await transaction.update(orders).set(updates)
       .where(eq(orders.id, existingOrder[0].id))
@@ -44,12 +47,14 @@ export async function saveShipment(shipmentContext: saveCtx): Promise<ShipmentDT
     } else {
       const inserted = await transaction.insert(orders).values({
         userId,
-        orderDate: new Date(), // TODO: update this to actual order date
+        orderDate: new Date(),
         trackingNumbers: trackingNumbers,
         trackingUrls: trackingUrls,
         estimatedDeliveryDate: parsed.estimated_delivery ? new Date(parsed.estimated_delivery) : null,
         lastCommunicationAt: new Date(),
         merchant: parsed.merchant ?? null,
+        merchantOrderNo: parsed.merchant_order_no ?? null,
+        merchantImageUrl: shipmentContext.merchantImageUrl ?? null
       }).returning();
       orderRow = inserted[0];
     }
@@ -98,6 +103,7 @@ export async function saveShipment(shipmentContext: saveCtx): Promise<ShipmentDT
       trackingNumbers: trackingNumbers,
       trackingUrls: trackingUrls,
       merchant: orderRow.merchant ?? parsed.merchant ?? null,
+      merchantImageUrl: orderRow.merchantImageUrl ?? null,
       estimatedDelivery: parsed.estimated_delivery ?? null,
       lastCommunicationAt: new Date().toISOString()
       
