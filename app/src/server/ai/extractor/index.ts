@@ -1,13 +1,13 @@
 import { ExtractionSchema } from "./tempSchema";
 import { stubExtract } from "./adapters/stub";
-import vercelExtract from "./adapters/vercel"
+import { vercelExtract } from "./adapters/vercel"
 
 export async function callAIExtract(emailText: string) {
   if (!emailText?.trim()) throw new Error("emailText required");
-  const mode = (process.env.EXTRACTOR_MODE ?? "stub").toLowerCase();
+  const model = (process.env.EXTRACTOR_MODEL ?? "stub").toLowerCase();
 
   const raw =
-    mode === "vercel"
+    model === "vercel"
       ? await vercelExtract(emailText)
       : stubExtract();
 

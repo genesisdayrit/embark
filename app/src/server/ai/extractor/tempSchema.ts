@@ -5,6 +5,7 @@ export const ExtractionSchema = z.object({
   tracking_numbers: z.array(z.string()).default([]),
   tracking_urls: z.array(z.string()).default([]),
   merchant: z.string().nullable().optional(),
+  merchant_order_no: z.string().nullable().optional(),
   order_id: z.string().nullable().optional(),
   estimated_delivery: z.string().nullable().optional(),
   is_delivery_email: z.boolean().optional(),

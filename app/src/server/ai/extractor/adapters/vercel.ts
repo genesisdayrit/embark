@@ -4,13 +4,10 @@ import { ExtractionSchema } from '../tempSchema';
 import { buildPrompt } from '../prompt';
 
 
-export default async function vercelExtract(emailText: string) {
+export async function vercelExtract(emailText: string) {
     if (!emailText?.trim()) throw new Error("emailText required")
 
      const controller = new AbortController();
-     const timeout = setTimeout(() => controller.abort(), 15_000)
-
-     try {
 
     const { object } = await generateObject({
         model: openai(process.env.EXTRACTOR_MODEL!),
@@ -31,8 +28,6 @@ export default async function vercelExtract(emailText: string) {
 
     if (!parsed.success) throw new Error("extract/validation_failed")
         return parsed.data
-} finally {
-    clearTimeout(timeout)
-}
+
  } 
 
