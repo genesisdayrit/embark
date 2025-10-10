@@ -130,20 +130,8 @@ const extractMerchantImageUrl = (html: string): string | null => {
   
   if (matches.length === 0) return null;
   
-  // Filter out common non-logo images (tracking pixels, social icons, etc.)
-  const filteredImages = matches.filter(url => {
-    const lower = url.toLowerCase();
-    // Filter out tracking pixels and very small images
-    if (lower.includes('tracking') || lower.includes('pixel') || lower.includes('spacer')) return false;
-    // Filter out social media icons
-    if (lower.includes('facebook') || lower.includes('twitter') || lower.includes('instagram')) return false;
-    // Filter out common icon/button patterns
-    if (lower.includes('icon') || lower.includes('button')) return false;
-    return true;
-  });
-  
-  // Return the first filtered image (usually the merchant logo)
-  return filteredImages[0] || matches[0] || null;
+  // return the first image found
+  return matches[0];
 };
 
 // fetch user emails from gmail within lookback period

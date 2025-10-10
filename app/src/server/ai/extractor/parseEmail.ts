@@ -7,7 +7,7 @@ export async function parseEmail(emailText: string, ctx?: { subject?: string | n
 
     const { cleaned, candidateLinks } = preClean(emailText)
 
-    const regexResult = regexExtract(cleaned)
+    const regexResult = regexExtract(emailText)
 
     if (regexResult) {
         let merchant = detectMerchantHeuristic({ subject: ctx?.subject ?? null, fromEmail: ctx?.fromEmail ?? null, body: emailText, links: candidateLinks})
@@ -18,7 +18,7 @@ export async function parseEmail(emailText: string, ctx?: { subject?: string | n
         return { ...regexResult, merchant, path_used: merchant ? 'regex+ai' : 'regex' }
     }
 
-    const aiResult = await vercelExtract(cleaned)
+    const aiResult = await vercelExtract(emailText)
 
     return { ...aiResult, path_used: "ai" }
 }
