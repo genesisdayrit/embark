@@ -69,3 +69,18 @@ export const notifications = pgTable('notifications', {
 
 export type InsertNotification = typeof notifications.$inferInsert;
 export type SelectNotification = typeof notifications.$inferSelect;
+
+export const gmailWatchState = pgTable('gmail_watch_state', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: text('user_id')
+    .notNull()
+    .references(() => user.id, { onDelete: 'cascade' }),
+  emailAddress: text('email_address').notNull(),
+  historyId: text('history_id').notNull(),
+  watchExpiration: timestamp('watch_expiration').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export type InsertGmailWatchState = typeof gmailWatchState.$inferInsert;
+export type SelectGmailWatchState = typeof gmailWatchState.$inferSelect;

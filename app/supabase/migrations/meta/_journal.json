@@ -71,6 +71,13 @@
       "when": 1760049000000,
       "tag": "0009_add_merchant_order_no_to_comms",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1760108822049,
+      "tag": "0010_nostalgic_risque",
+      "breakpoints": true
     }
   ]
 }
