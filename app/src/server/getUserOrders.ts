@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { server_auth } from "./auth";
 import { db } from "@/db";
-import { orders } from "@/db/schema";
+import { orders, ordersTest } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export const getUserOrders = async (req: Request) => {
@@ -27,8 +27,8 @@ export const getUserOrders = async (req: Request) => {
     //Get all the orders for a given user - userorders is an array of order objects
     const userOrders = await db
         .select()
-        .from(orders)
-        .where(eq(orders.userId, USER_ID));
+        .from(ordersTest)
+        .where(eq(ordersTest.userId, USER_ID));
 
     return userOrders
 

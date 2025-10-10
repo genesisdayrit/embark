@@ -69,3 +69,28 @@ export const notifications = pgTable('notifications', {
 
 export type InsertNotification = typeof notifications.$inferInsert;
 export type SelectNotification = typeof notifications.$inferSelect;
+
+
+export const ordersTest = pgTable('orders_test', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: text('user_id')
+    .notNull()
+    .references(() => user.id, { onDelete: 'cascade' }),
+  orderDate: timestamp('order_date').notNull(),
+  shipmentDate: timestamp('shipment_date'),
+  estimatedDeliveryDate: timestamp('estimated_delivery_date'),
+  actualDeliveryDate: timestamp('actual_delivery_date'),
+  merchant: text('merchant'),
+  merchantOrderNo: text('merchant_order_no'),
+  merchantImageUrl: text('merchant_image_url'),
+  orderInfo: jsonb('order_info'),
+  lastCommunicationAt: timestamp('last_communication_at'),
+  relatedCommunicationIds: uuid('related_communication_ids').array(),
+  trackingUrls: text('tracking_urls').array(),
+  trackingNumbers: text('tracking_numbers').array(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export type InsertOrdeTest = typeof ordersTest.$inferInsert;
+export type SelectOrderTest = typeof ordersTest.$inferSelect;

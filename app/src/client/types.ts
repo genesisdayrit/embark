@@ -1,3 +1,7 @@
+export type orderInfo = {
+  name: string | null;
+}
+
 export type userOrders = {
     id: string;
     userId: string;
@@ -8,7 +12,7 @@ export type userOrders = {
     merchant: string | null;
     merchantImageUrl: string | null;
     merchantOrderNo: string | null;
-    orderInfo: unknown;
+    orderInfo: orderInfo;
     lastCommunicationAt: Date | null;
     relatedCommunicationIds: string[] | null;
     trackingUrls: string[] | null;
