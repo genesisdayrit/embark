@@ -29,8 +29,15 @@ function ItemList({ order }: ItemListProps) {
                         )}
                     </div>
                     <div className="flex flex-col justify-start items-start">
+                        <p className="text-2xl font-extrabold">{formatDate(order.estimatedDeliveryDate)}</p>
+                        {order.orderInfo?.name && (
+                            <p className="font-bold">{order.orderInfo.name}</p>
+                        )}
+                        <p>Status: {getOrderStatus(order)}</p>
+                        <p>Item Merchant: {order.merchant}</p>
+
                         {order.trackingUrls && order.trackingUrls.length > 0 ? (
-                            <Button className="bg-[#CCD5AE] text-base rounded-3xl mb-3"><a
+                            <Button className="bg-[#CCD5AE] text-base rounded-3xl mt-3"><a
                                 href={order.trackingUrls[0]}
                                 target="_blank"
                                 className="text-black-700"
@@ -40,12 +47,6 @@ function ItemList({ order }: ItemListProps) {
                         ) : (
                             <span></span>
                         )}
-                        {order.orderInfo?.name && (
-                            <p className="text-lg font-semibold mb-2">{order.orderInfo.name}</p>
-                        )}
-                        <p className="text-xl font-extrabold">Estimated Delivery Date: {formatDate(order.estimatedDeliveryDate)}</p>
-                        <p>Status: {getOrderStatus(order)}</p>
-                        <p>Item Merchant: {order.merchant}</p>
                     </div>
 
                 </div>

@@ -72,7 +72,16 @@ function Dashboard() {
   }
 
   // filter upcoming orders
-  const upcomingOrders = orders.filter(order => !order.actualDeliveryDate);
+  const upcomingOrders = orders
+    .filter(order => !order.actualDeliveryDate)
+    .slice()
+    .sort((a, b) => {
+      const getSortDate = (o: userOrders) =>
+        o.estimatedDeliveryDate ?? o.shipmentDate ?? o.orderDate;
+      const at = getSortDate(a) ? new Date(getSortDate(a) as Date).getTime() : Number.POSITIVE_INFINITY;
+      const bt = getSortDate(b) ? new Date(getSortDate(b) as Date).getTime() : Number.POSITIVE_INFINITY;
+      return at - bt; // soonest on top
+    });
 
   // filter delivered orders
   const deliveredOrders = orders.filter(order => order.actualDeliveryDate);
