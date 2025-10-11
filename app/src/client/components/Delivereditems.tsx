@@ -26,6 +26,9 @@ function DeliveredItems({ order }: ItemListProps) {
                         )}
                     </div>
                     <div className="flex flex-col justify-start items-start">
+                        {order.orderInfo?.name && (
+                            <p className="ml-10 text-lg font-semibold mb-2">{order.orderInfo.name}</p>
+                        )}
                         <p className="ml-10 text-xl font-extrabold">Delivered on: {formatDate(order.actualDeliveryDate)}</p>
                         <p className="ml-10">Merchant: {order.merchant || 'N/A'}</p>
                         <p className="ml-10">Order #: {order.merchantOrderNo || 'N/A'}</p>

@@ -40,6 +40,9 @@ function ItemList({ order }: ItemListProps) {
                         ) : (
                             <span></span>
                         )}
+                        {order.orderInfo?.name && (
+                            <p className="text-lg font-semibold mb-2">{order.orderInfo.name}</p>
+                        )}
                         <p className="text-xl font-extrabold">Estimated Delivery Date: {formatDate(order.estimatedDeliveryDate)}</p>
                         <p>Status: {getOrderStatus(order)}</p>
                         <p>Item Merchant: {order.merchant}</p>
